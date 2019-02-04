@@ -1,23 +1,17 @@
-﻿
+﻿$(document).ready(function () {
 
+    $('#RazonInactivo').hide();
 
-$(document).ready(function () {
-
-    $('#clte_RazonInactivo').hide();
-    console.log("Hola");
 });
 
 
+
+$("#clte_EsActivo").change(function () {
+    if (this.checked) {
+        $('#RazonInactivo').hide();
+    }
+    else {
+        $('#RazonInactivo').show();
+    }
+});
         
-
-$(function () {
-    $('#clte_EsActivo').change(function () {
-        console.log("Adios");
-        if ($(this).val() == 1) {
-            $('#clte_RazonInactivo').hide();
-        } else {
-            $('#clte_RazonInactivo').show();
-        }
-    });
-});
-

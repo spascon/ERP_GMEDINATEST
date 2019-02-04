@@ -6,9 +6,10 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using ERP_ZORZAL.Models;
+using ERP_GMEDINA.Models;
+using System.Transactions;
 
-namespace ERP_ZORZAL.Controllers
+namespace ERP_GMEDINA.Controllers
 {
     public class CuponDescuentoController : Controller
     {
@@ -39,29 +40,40 @@ namespace ERP_ZORZAL.Controllers
         // GET: /CuponDescuento/Create
         public ActionResult Create()
         {
-            ViewBag.cdto_UsuarioModifica = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario");
-            ViewBag.cdto_UsuarioCrea = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario");
-            ViewBag.suc_Id = new SelectList(db.tbSucursal, "suc_Id", "mun_Codigo");
+            ViewBag.suc_Id = new SelectList(db.tbSucursal, "suc_Id", "suc_Descripcion");
             return View();
         }
-
-        // POST: /CuponDescuento/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="cdto_ID,suc_Id,cdto_FechaEmision,cdto_FechaVencimiento,cdto_PorcentajeDescuento,cdto_MontoDescuento,cdto_UsuarioCrea,cdto_FechaCrea,cdto_UsuarioModifica,cdto_FechaModifica")] tbCuponDescuento tbCuponDescuento)
+        public ActionResult Create([Bind(Include= "cdto_ID,suc_Id,cdto_FechaEmision,cdto_FechaVencimiento,cdto_PorcentajeDescuento,cdto_MontoDescuento,cdto_MaximoMontoDescuento,cdto_CantidadCompraMinima,cdto_Redimido,cdto_FechaRedencion,cdto_Anulado,cdto_EsImpreso,cdto_UsuarioCrea,cdto_FechaCrea,cdto_UsuarioModifica,cdto_FechaModifica")] tbCuponDescuento tbCuponDescuento)
         {
             if (ModelState.IsValid)
             {
-                db.tbCuponDescuento.Add(tbCuponDescuento);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    var MensajeError = "";
+                    IEnumerable<object> list = null;
+                    list = db.UDP_Vent_tbCuponDescuento_Insert(tbCuponDescuento.suc_Id, tbCuponDescuento.cdto_FechaEmision, 
+                                                     tbCuponDescuento.cdto_FechaVencimiento, tbCuponDescuento.cdto_PorcentajeDescuento,
+                                                     tbCuponDescuento.cdto_MontoDescuento, tbCuponDescuento.cdto_MaximoMontoDescuento,
+                                                     tbCuponDescuento.cdto_CantidadCompraMinima,
+                                                     tbCuponDescuento.cdto_Redimido, tbCuponDescuento.cdto_FechaRedencion, tbCuponDescuento.cdto_Anulado,tbCuponDescuento.cdto_EsImpreso );
+                    foreach (UDP_Vent_tbCuponDescuento_Insert_Result CuponDescuento in list)
+                        MensajeError = CuponDescuento.MensajeError;
+                    if (MensajeError == "-1")
+                    {
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index");
+                    }
+                }
+                catch(Exception Ex)
+                {
+                    ModelState.AddModelError("", "Error al agregar el registro" + Ex.Message.ToString());
+                    return View(tbCuponDescuento);
+                }
             }
-
-            ViewBag.cdto_UsuarioModifica = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbCuponDescuento.cdto_UsuarioModifica);
-            ViewBag.cdto_UsuarioCrea = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbCuponDescuento.cdto_UsuarioCrea);
-            ViewBag.suc_Id = new SelectList(db.tbSucursal, "suc_Id", "mun_Codigo", tbCuponDescuento.suc_Id);
             return View(tbCuponDescuento);
         }
 
@@ -77,31 +89,54 @@ namespace ERP_ZORZAL.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.cdto_UsuarioModifica = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbCuponDescuento.cdto_UsuarioModifica);
-            ViewBag.cdto_UsuarioCrea = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbCuponDescuento.cdto_UsuarioCrea);
-            ViewBag.suc_Id = new SelectList(db.tbSucursal, "suc_Id", "mun_Codigo", tbCuponDescuento.suc_Id);
+            ViewBag.suc_Id = new SelectList(db.tbSucursal, "suc_Id", "suc_Descripcion", tbCuponDescuento.suc_Id);
             return View(tbCuponDescuento);
         }
 
-        // POST: /CuponDescuento/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="cdto_ID,suc_Id,cdto_FechaEmision,cdto_FechaVencimiento,cdto_PorcentajeDescuento,cdto_MontoDescuento,cdto_UsuarioCrea,cdto_FechaCrea,cdto_UsuarioModifica,cdto_FechaModifica")] tbCuponDescuento tbCuponDescuento)
+        public ActionResult Edit([Bind(Include= "cdto_ID,suc_Id,cdto_FechaEmision,cdto_FechaVencimiento,cdto_PorcentajeDescuento,cdto_MontoDescuento,cdto_MaximoMontoDescuento,cdto_CantidadCompraMinima,cdto_Redimido,cdto_FechaRedencion, cdto_Anulado,cdto_EsImpreso,cdto_UsuarioCrea,cdto_FechaCrea,cdto_UsuarioModifica,cdto_FechaModifica, tbUsuario, tbUsuario1")] tbCuponDescuento tbCuponDescuento)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(tbCuponDescuento).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    var MensajeError = "";
+                    IEnumerable<object> list = null;
+                    list = db.UDP_Vent_tbCuponDescuento_Update(tbCuponDescuento.cdto_ID,
+                        tbCuponDescuento.suc_Id, 
+                        tbCuponDescuento.cdto_FechaEmision, 
+                        tbCuponDescuento.cdto_FechaVencimiento, 
+                        tbCuponDescuento.cdto_PorcentajeDescuento,
+                        tbCuponDescuento.cdto_MontoDescuento, 
+                        tbCuponDescuento.cdto_MaximoMontoDescuento, 
+                        tbCuponDescuento.cdto_CantidadCompraMinima,
+                        tbCuponDescuento.cdto_Redimido,
+                        tbCuponDescuento.cdto_FechaRedencion,
+                        tbCuponDescuento.cdto_Anulado, 
+                        tbCuponDescuento.cdto_EsImpreso,
+                        tbCuponDescuento.cdto_UsuarioCrea, 
+                        tbCuponDescuento.cdto_FechaCrea);
+                    foreach (UDP_Vent_tbCuponDescuento_Update_Result CuponDescuento in list)
+                        MensajeError = CuponDescuento.MensajeError;
+                    if (MensajeError == "-1")
+                    {
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index");
+                    }
+                }
+                catch(Exception Ex)
+                {
+                    ModelState.AddModelError("", "Error al Editar el registro" + Ex.Message.ToString());
+                    return View(tbCuponDescuento);
+                }
+                
             }
-            ViewBag.cdto_UsuarioModifica = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbCuponDescuento.cdto_UsuarioModifica);
-            ViewBag.cdto_UsuarioCrea = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbCuponDescuento.cdto_UsuarioCrea);
-            ViewBag.suc_Id = new SelectList(db.tbSucursal, "suc_Id", "mun_Codigo", tbCuponDescuento.suc_Id);
+            
             return View(tbCuponDescuento);
         }
-
         // GET: /CuponDescuento/Delete/5
         public ActionResult Delete(int? id)
         {
@@ -135,6 +170,12 @@ namespace ERP_ZORZAL.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
+        }
+        [HttpPost]
+        public JsonResult AnularCuponDescuento(int cdtoId, bool Anulada)
+        {
+            var list = db.UDP_Vent_tbCuponDescuento_Anulado(cdtoId, Anulada).ToList();
+            return Json(list, JsonRequestBehavior.AllowGet);
         }
     }
 }

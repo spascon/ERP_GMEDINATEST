@@ -2,12 +2,29 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using ERP_ZORZAL.Models;
+using ERP_GMEDINA.Models;
 
-namespace ERP_ZORZAL.Models
+namespace ERP_GMEDINA.Models
 {
     public class cUtilities
     {
+        public static List<cMinorista> MinoristaList()
+        {
+            List<cMinorista> list = new List<cMinorista>();
+
+            list.Add(new cMinorista()
+            {
+                ID_MINORISTA = "1",
+                DESCRIPCION = "Si"
+            });
+            list.Add(new cMinorista()
+            {
+                ID_MINORISTA = "0",
+                DESCRIPCION = "No"
+            });
+            return list;
+        }
+
 
         public static List<cActivo> EstadoList()
         {
@@ -37,7 +54,7 @@ namespace ERP_ZORZAL.Models
             });
             list.Add(new cTipoCuenta()
             {
-                ID_TIPOCUENTA = 2,
+                ID_TIPOCUENTA = 0,
                 DESCRIPCION = "Cheques"
             });
             return list;
@@ -105,6 +122,24 @@ namespace ERP_ZORZAL.Models
 
             return list;
         }
+        public static List<cDenominacion> DenominacionList()
+        {
+            List<cDenominacion> list = new List<cDenominacion>();
 
+            list.Add(new cDenominacion()
+            {
+                ID_TipoDenominacion = 1,
+                Tipo_Denominacion = "Billete"
+            });
+            list.Add(new cDenominacion()
+            {
+                ID_TipoDenominacion = 2,
+                Tipo_Denominacion = "Moneda"
+            });
+
+
+            return list;
+        }
     }
 }
+

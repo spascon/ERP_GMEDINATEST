@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ERP_ZORZAL.Models
+namespace ERP_GMEDINA.Models
 {
     using System;
     using System.Collections.Generic;
@@ -27,19 +27,27 @@ namespace ERP_ZORZAL.Models
         public byte estm_Id { get; set; }
         public int prov_Id { get; set; }
         public string ent_FacturaCompra { get; set; }
-        public System.DateTime ent_FechaCompra { get; set; }
-        public int fact_Id { get; set; }
-        public string ent_RazonDevolucion { get; set; }
-        public int ent_BodegaDestino { get; set; }
+        public Nullable<System.DateTime> ent_FechaCompra { get; set; }
+        public Nullable<int> fact_Id { get; set; }
+        public Nullable<int> ent_RazonDevolucion { get; set; }
+        public Nullable<int> ent_BodegaDestino { get; set; }
         public byte tent_Id { get; set; }
+        public Nullable<bool> entd_EsAnulada { get; set; }
+        public string entd_RazonAnulada { get; set; }
+        public int ent_SalidaOrigen { get; set; }
         public int ent_UsuarioCrea { get; set; }
         public System.DateTime ent_FechaCrea { get; set; }
         public Nullable<int> ent_UsuarioModifica { get; set; }
         public Nullable<System.DateTime> ent_FechaModifica { get; set; }
     
+        public virtual tbUsuario tbUsuario { get; set; }
+        public virtual tbUsuario tbUsuario1 { get; set; }
         public virtual tbBodega tbBodega { get; set; }
+        public virtual tbBodega tbBodega1 { get; set; }
         public virtual tbEstadoMovimiento tbEstadoMovimiento { get; set; }
         public virtual tbProveedor tbProveedor { get; set; }
+        public virtual tbSalida tbSalida { get; set; }
+        public virtual tbTipoDevolucion tbTipoDevolucion { get; set; }
         public virtual tbTipoEntrada tbTipoEntrada { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbEntradaDetalle> tbEntradaDetalle { get; set; }

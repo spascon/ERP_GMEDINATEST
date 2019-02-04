@@ -6,7 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using ERP_ZORZAL.Models;
+using ERP_GMEDINA.Models;
 
 namespace ERP_ZORZAL.Controllers
 {
@@ -48,14 +48,36 @@ namespace ERP_ZORZAL.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include="acte_Id,acte_Descripcion,acte_UsuarioCrea,acte_FechaCrea,acte_UsuarioModifica,acte_FechaModifica")] tbActividadEconomica tbActividadEconomica)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.tbActividadEconomica.Add(tbActividadEconomica);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                if (ModelState.IsValid)
+                {
+                    //} db.tbActividadEconomica.Add(tbActividadEconomica);
+                    //db.SaveChanges();
+                    //return RedirectToAction("Index");
+                    var MensajeError = "";
+                    IEnumerable<object> list = null;
+                    list = db.UDP_Gral_tbActividadEconomica_Insert(tbActividadEconomica.acte_Descripcion);
 
-            return View(tbActividadEconomica);
+                    foreach (UDP_Gral_tbActividadEconomica_Insert_Result ActividadEconomica in list)
+                        MensajeError = ActividadEconomica.MensajeError;
+
+                    if (MensajeError == "-1")
+                    {
+                    }
+
+                    else
+                    {
+                        return RedirectToAction("Index");
+                    }
+
+                }
+            }
+            catch(Exception Ex)
+            {
+                Ex.Message.ToString();
+            }
+                return View(tbActividadEconomica);
         }
 
         // GET: /ActividadEconomica/Edit/5
@@ -78,14 +100,38 @@ namespace ERP_ZORZAL.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="acte_Id,acte_Descripcion,acte_UsuarioCrea,acte_FechaCrea,acte_UsuarioModifica,acte_FechaModifica")] tbActividadEconomica tbActividadEconomica)
+        public ActionResult Edit([Bind(Include= "acte_Id,acte_Descripcion,acte_UsuarioCrea,acte_FechaCrea,acte_UsuarioModifica,acte_FechaModifica, tbUsuario, tbUsuario1")] tbActividadEconomica tbActividadEconomica)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.Entry(tbActividadEconomica).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+
+
+                if (ModelState.IsValid)
+                {
+                  
+
+                    var MensajeError = "";
+                    IEnumerable<object> list = null;
+                    list = db.UDP_Gral_tbActividadEconomica_Update(tbActividadEconomica.acte_Id, tbActividadEconomica.acte_Descripcion, tbActividadEconomica.acte_UsuarioCrea, tbActividadEconomica.acte_FechaCrea);
+                    foreach (UDP_Gral_tbActividadEconomica_Update_Result ActividadEconomica in list)
+                        MensajeError = ActividadEconomica.MensajeError;
+                    if (MensajeError == "-1")
+                    {
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index");
+                    }
+
+                }
+
+
             }
+            catch (Exception Ex)
+            {
+                Ex.Message.ToString();
+            }
+
             return View(tbActividadEconomica);
         }
 

@@ -7,13 +7,19 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ERP_ZORZAL.Models
+namespace ERP_GMEDINA.Models
 {
     using System;
     using System.Collections.Generic;
     
     public partial class tbProductoSubcategoria
     {
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
+        public tbProductoSubcategoria()
+        {
+            this.tbProducto = new HashSet<tbProducto>();
+        }
+    
         public int pscat_Id { get; set; }
         public string pscat_Descripcion { get; set; }
         public int pcat_Id { get; set; }
@@ -22,9 +28,13 @@ namespace ERP_ZORZAL.Models
         public System.DateTime pscat_FechaCrea { get; set; }
         public Nullable<int> pscat_UsuarioModifica { get; set; }
         public Nullable<System.DateTime> pscat_FechaModifica { get; set; }
+        public decimal pscat_ISV { get; set; }
     
         public virtual tbUsuario tbUsuario { get; set; }
+        public virtual tbUsuario tbUsuario1 { get; set; }
         public virtual tbEstadoMovimiento tbEstadoMovimiento { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<tbProducto> tbProducto { get; set; }
         public virtual tbProductoCategoria tbProductoCategoria { get; set; }
     }
 }

@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ERP_ZORZAL.Models
+namespace ERP_GMEDINA.Models
 {
     using System;
     using System.Collections.Generic;
@@ -26,7 +26,10 @@ namespace ERP_ZORZAL.Models
         public Nullable<System.DateTime> bodd_FechaModifica { get; set; }
         public decimal bodd_Costo { get; set; }
         public decimal bodd_CostoPromedio { get; set; }
+        public decimal bodd_CantidadExistente { get; set; }
     
+        public virtual tbUsuario tbUsuario { get; set; }
+        public virtual tbUsuario tbUsuario1 { get; set; }
         public virtual tbBodega tbBodega { get; set; }
         public virtual tbProducto tbProducto { get; set; }
     }

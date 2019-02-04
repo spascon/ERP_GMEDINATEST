@@ -6,9 +6,9 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using ERP_ZORZAL.Models;
+using ERP_GMEDINA.Models;
 
-namespace Inspinia_MVC5_SeedProject.Controllers
+namespace ERP_ZORZAL.Controllers
 {
     public class TipoPagoController : Controller
     {
@@ -17,11 +17,12 @@ namespace Inspinia_MVC5_SeedProject.Controllers
         // GET: /TipoPago/
         public ActionResult Index()
         {
-            return View(db.tbTipoPago.ToList());
+            var tbtipopago = db.tbTipoPago.Include(t => t.tbUsuario).Include(t => t.tbUsuario1);
+            return View(tbtipopago.ToList());
         }
 
         // GET: /TipoPago/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(short? id)
         {
             if (id == null)
             {
@@ -38,28 +39,56 @@ namespace Inspinia_MVC5_SeedProject.Controllers
         // GET: /TipoPago/Create
         public ActionResult Create()
         {
+            ViewBag.tpa_UsuarioCrea = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario");
+            ViewBag.tpa_UsuarioModifica = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario");
             return View();
         }
 
         // POST: /TipoPago/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
+        // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="tpa_Id,tpa_Descripcion,tpa_Emisor,tpa_Cuenta,tpa_FechaVencimiento,tpa_Titular,tpa_UsuarioCrea,tpa_FechaCrea,tpa_UsuarioModifica,tpa_FechaModifica")] tbTipoPago tbTipoPago)
+        public ActionResult Create([Bind(Include = "tpa_Id,tpa_Descripcion,tpa_Emisor,tpa_Cuenta,tpa_FechaVencimiento,tpa_Titular,tpa_UsuarioCrea,tpa_FechaCrea,tpa_UsuarioModifica,tpa_FechaModifica")] tbTipoPago tbTipoPago)
         {
+
             if (ModelState.IsValid)
             {
-                db.tbTipoPago.Add(tbTipoPago);
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
+                try
+                {
+                    var MensajeError = 0;
+                    IEnumerable<object> list = null;
+                    list = db.UDP_Vent_tbTipoPago_Insert(tbTipoPago.tpa_Descripcion,  tbTipoPago.tpa_Emisor, tbTipoPago.tpa_Cuenta, tbTipoPago.tpa_FechaVencimiento, tbTipoPago.tpa_Titular);
+                    foreach (UDP_Vent_tbTipoPago_Insert_Result tipopago in list)
+                        MensajeError = tipopago.MensajeError;
+                    if (MensajeError == -1)
+                    {
 
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index");
+
+                    }
+                }
+                catch (Exception Ex)
+                {
+                    ModelState.AddModelError("", "No se ha podido ingresar el registro, favor contacte al administrador " + Ex.Message.ToString());
+                    return View(tbTipoPago);
+                }
+                //db.tbTipoPago.Add(tbTipoPago);
+                //db.SaveChanges();
+                //return RedirectToAction("Index");
+            }
+        
+         
+            ViewBag.tpa_UsuarioCrea = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbTipoPago.tpa_UsuarioCrea);
+            ViewBag.tpa_UsuarioModifica = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbTipoPago.tpa_UsuarioModifica);
             return View(tbTipoPago);
         }
 
         // GET: /TipoPago/Edit/5
-        public ActionResult Edit(int? id)
+        public ActionResult Edit(short? id)
         {
             if (id == null)
             {
@@ -70,27 +99,53 @@ namespace Inspinia_MVC5_SeedProject.Controllers
             {
                 return HttpNotFound();
             }
+            ViewBag.tpa_UsuarioCrea = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbTipoPago.tpa_UsuarioCrea);
+            ViewBag.tpa_UsuarioModifica = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbTipoPago.tpa_UsuarioModifica);
             return View(tbTipoPago);
         }
 
         // POST: /TipoPago/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
+        // Para protegerse de ataques de publicación excesiva, habilite las propiedades específicas a las que desea enlazarse. Para obtener 
+        // más información vea http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="tpa_Id,tpa_Descripcion,tpa_Emisor,tpa_Cuenta,tpa_FechaVencimiento,tpa_Titular,tpa_UsuarioCrea,tpa_FechaCrea,tpa_UsuarioModifica,tpa_FechaModifica")] tbTipoPago tbTipoPago)
+        public ActionResult Edit([Bind(Include= "tpa_Id,tpa_Descripcion,tpa_Emisor,tpa_Cuenta,tpa_FechaVencimiento,tpa_Titular,tpa_UsuarioCrea,tpa_FechaCrea,tpa_UsuarioModifica,tpa_FechaModifica, tbUsuario, tbUsuario1")] tbTipoPago tbTipoPago)
         {
             if (ModelState.IsValid)
             {
-                db.Entry(tbTipoPago).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                try
+                {
+                    var MensajeError = 0;
+                    IEnumerable<object> list = null;
+                    list = db.UDP_Vent_tbTipoPago_Update(tbTipoPago.tpa_Id, tbTipoPago.tpa_Descripcion, tbTipoPago.tpa_Emisor, tbTipoPago.tpa_Cuenta, tbTipoPago.tpa_FechaVencimiento, tbTipoPago.tpa_Titular, tbTipoPago.tpa_UsuarioCrea, tbTipoPago.tpa_FechaCrea);
+                    foreach (UDP_Vent_tbTipoPago_Update_Result tipopago in list)
+                        MensajeError = tipopago.MensajeError;
+                    if (MensajeError == -1)
+                    {
+
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index");
+                    }
+                }
+                catch (Exception Ex)
+                {
+                    ModelState.AddModelError("", "No se ha podido actualizar el registro, favor contacte al administrador" + Ex.Message.ToString());
+                    return View(tbTipoPago);
+                }
+
+                //db.Entry(tbTipoPago).State = EntityState.Modified;
+                //db.SaveChanges();
+                //return RedirectToAction("Index");
             }
+            ViewBag.tpa_UsuarioCrea = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbTipoPago.tpa_UsuarioCrea);
+            ViewBag.tpa_UsuarioModifica = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbTipoPago.tpa_UsuarioModifica);
             return View(tbTipoPago);
         }
 
         // GET: /TipoPago/Delete/5
-        public ActionResult Delete(int? id)
+        public ActionResult Delete(short? id)
         {
             if (id == null)
             {
@@ -107,7 +162,7 @@ namespace Inspinia_MVC5_SeedProject.Controllers
         // POST: /TipoPago/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult DeleteConfirmed(short id)
         {
             tbTipoPago tbTipoPago = db.tbTipoPago.Find(id);
             db.tbTipoPago.Remove(tbTipoPago);

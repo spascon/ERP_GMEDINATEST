@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ERP_ZORZAL.Models
+namespace ERP_GMEDINA.Models
 {
     using System;
     using System.Collections.Generic;
@@ -17,12 +17,14 @@ namespace ERP_ZORZAL.Models
         public int acrol_Id { get; set; }
         public int rol_Id { get; set; }
         public int obj_Id { get; set; }
-        public string acrol_Descripcion { get; set; }
         public int acrol_UsuarioCrea { get; set; }
         public System.DateTime acrol_FechaCrea { get; set; }
         public Nullable<int> acrol_UsuarioModifica { get; set; }
         public Nullable<System.DateTime> acrol_FechaModifica { get; set; }
     
+        public virtual tbObjeto tbObjeto { get; set; }
+        public virtual tbUsuario tbUsuario { get; set; }
         public virtual tbRol tbRol { get; set; }
+        public virtual tbUsuario tbUsuario1 { get; set; }
     }
 }

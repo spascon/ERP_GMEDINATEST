@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ERP_ZORZAL.Models
+namespace ERP_GMEDINA.Models
 {
     using System;
     using System.Collections.Generic;
@@ -19,8 +19,9 @@ namespace ERP_ZORZAL.Models
         public string prod_Codigo { get; set; }
         public decimal devd_CantidadProducto { get; set; }
         public string devd_Descripcion { get; set; }
-        public Nullable<int> devd_UsuarioCrea { get; set; }
-        public Nullable<System.DateTime> devd_FechaCrea { get; set; }
+        public decimal devd_Monto { get; set; }
+        public int devd_UsuarioCrea { get; set; }
+        public System.DateTime devd_FechaCrea { get; set; }
         public Nullable<int> devd_UsuarioModifica { get; set; }
         public Nullable<System.DateTime> devd_FechaModifica { get; set; }
     

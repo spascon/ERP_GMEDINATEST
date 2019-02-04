@@ -6,7 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using ERP_ZORZAL.Models;
+using ERP_GMEDINA.Models;
 
 namespace ERP_ZORZAL.Controllers
 {
@@ -17,8 +17,8 @@ namespace ERP_ZORZAL.Controllers
         // GET: /Moneda/
         public ActionResult Index()
         {
-            var tbmoneda = db.tbMoneda.Include(t => t.tbUsuario).Include(t => t.tbUsuario1);
-            return View(tbmoneda.ToList());
+            var tbMoneda = db.tbMoneda.Include(t => t.tbUsuario).Include(t => t.tbUsuario1);
+            return View(tbMoneda.ToList());
         }
 
         // GET: /Moneda/Details/5
@@ -39,8 +39,8 @@ namespace ERP_ZORZAL.Controllers
         // GET: /Moneda/Create
         public ActionResult Create()
         {
-            ViewBag.mnda_UsuarioCrea = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario");
-            ViewBag.mnda_UsuarioModifica = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario");
+            //ViewBag.mnda_UsuarioCrea = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario");
+            //ViewBag.mnda_UsuarioModifica = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario");
             return View();
         }
 
@@ -51,16 +51,34 @@ namespace ERP_ZORZAL.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include="mnda_Id,mnda_Abreviatura,mnda_Nombre,mnda_UsuarioCrea,mnda_FechaCrea,mnda_UsuarioModifica,mnda_FechaModifica")] tbMoneda tbMoneda)
         {
-            if (ModelState.IsValid)
+            try
             {
-                db.tbMoneda.Add(tbMoneda);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                if (ModelState.IsValid)
+                {
+                    //////////Aqui va la lista//////////////
+
+                    var MensajeError = "";
+                    IEnumerable<object> list = null;
+                    list = db.UDP_Gral_tbMoneda_Insert(tbMoneda.mnda_Abreviatura, tbMoneda.mnda_Nombre);
+                    foreach (UDP_Gral_tbMoneda_Insert_Result Moneda in list)
+                        MensajeError = Moneda.MensajeError;
+                    if (MensajeError == "-1")
+                    {
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index");
+                    }
+                }
+            }
+            catch (Exception Ex)
+            {
+                Ex.Message.ToString();
             }
 
-            ViewBag.mnda_UsuarioCrea = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbMoneda.mnda_UsuarioCrea);
-            ViewBag.mnda_UsuarioModifica = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbMoneda.mnda_UsuarioModifica);
             return View(tbMoneda);
+
+
         }
 
         // GET: /Moneda/Edit/5
@@ -75,8 +93,8 @@ namespace ERP_ZORZAL.Controllers
             {
                 return HttpNotFound();
             }
-            ViewBag.mnda_UsuarioCrea = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbMoneda.mnda_UsuarioCrea);
-            ViewBag.mnda_UsuarioModifica = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbMoneda.mnda_UsuarioModifica);
+            //ViewBag.mnda_UsuarioCrea = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbMoneda.mnda_UsuarioCrea);
+            //ViewBag.mnda_UsuarioModifica = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbMoneda.mnda_UsuarioModifica);
             return View(tbMoneda);
         }
 
@@ -85,16 +103,39 @@ namespace ERP_ZORZAL.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include="mnda_Id,mnda_Abreviatura,mnda_Nombre,mnda_UsuarioCrea,mnda_FechaCrea,mnda_UsuarioModifica,mnda_FechaModifica")] tbMoneda tbMoneda)
+        public ActionResult Edit([Bind(Include= "mnda_Id,mnda_Abreviatura,mnda_Nombre,mnda_UsuarioCrea,mnda_FechaCrea,mnda_UsuarioModifica,mnda_FechaModifica, tbUsuario, tbUsuario1")] tbMoneda tbMoneda)
         {
-            if (ModelState.IsValid)
+
+            try
             {
-                db.Entry(tbMoneda).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
+
+                if (ModelState.IsValid)
+                {  
+                    //    db.Entry(tbMoneda).State = EntityState.Modified;
+                   //    db.SaveChanges();
+                   //    return RedirectToAction("Index");
+
+
+                    var MensajeError = "";
+                    IEnumerable<object> list = null;
+                    list = db.UDP_Gral_tbMoneda_Update(tbMoneda.mnda_Id, tbMoneda.mnda_Abreviatura, tbMoneda.mnda_Nombre, tbMoneda.mnda_UsuarioCrea,tbMoneda.mnda_FechaCrea, tbMoneda.mnda_UsuarioModifica, tbMoneda.mnda_FechaModifica);
+                    foreach (UDP_Gral_tbMoneda_Update_Result Moneda in list)
+                        MensajeError = Moneda.MensajeError;
+                    if (MensajeError == "-1")
+                    {
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index");
+                    }
+
+                }
             }
-            ViewBag.mnda_UsuarioCrea = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbMoneda.mnda_UsuarioCrea);
-            ViewBag.mnda_UsuarioModifica = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbMoneda.mnda_UsuarioModifica);
+            catch (Exception Ex)
+            {
+                Ex.Message.ToString();
+            }
+
             return View(tbMoneda);
         }
 

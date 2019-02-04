@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ERP_ZORZAL.Models
+namespace ERP_GMEDINA.Models
 {
     using System;
     using System.Collections.Generic;
@@ -26,8 +26,11 @@ namespace ERP_ZORZAL.Models
         public System.DateTime pcat_FechaCrea { get; set; }
         public Nullable<int> pcat_UsuarioModifica { get; set; }
         public Nullable<System.DateTime> pcat_FechaModifica { get; set; }
+        public byte pcat_EsActivo { get; set; }
     
         public virtual tbUsuario tbUsuario { get; set; }
+        public virtual tbUsuario tbUsuario1 { get; set; }
+        public virtual tbUsuario tbUsuario2 { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbProductoSubcategoria> tbProductoSubcategoria { get; set; }
     }

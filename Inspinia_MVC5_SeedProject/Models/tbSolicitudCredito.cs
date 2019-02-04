@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ERP_ZORZAL.Models
+namespace ERP_GMEDINA.Models
 {
     using System;
     using System.Collections.Generic;
@@ -18,7 +18,8 @@ namespace ERP_ZORZAL.Models
         public int clte_Id { get; set; }
         public byte escre_Id { get; set; }
         public System.DateTime cred_FechaSolicitud { get; set; }
-        public System.DateTime cred_FechaAprobacion { get; set; }
+        public Nullable<System.DateTime> cred_FechaAprobacion { get; set; }
+        public Nullable<System.DateTime> cred_FechaDenegacion { get; set; }
         public decimal cred_MontoSolicitado { get; set; }
         public decimal cred_MontoAprobado { get; set; }
         public int cred_DiasSolicitado { get; set; }

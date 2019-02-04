@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ERP_ZORZAL.Models
+namespace ERP_GMEDINA.Models
 {
     using System;
     using System.Collections.Generic;
@@ -21,9 +21,13 @@ namespace ERP_ZORZAL.Models
         }
     
         public int solef_Id { get; set; }
-        public short cja_Id { get; set; }
+        public int mocja_Id { get; set; }
+        public bool solef_EsApertura { get; set; }
+        public Nullable<System.DateTime> solef_FechaEntrega { get; set; }
+        public Nullable<int> solef_UsuarioEntrega { get; set; }
         public short mnda_Id { get; set; }
-        public decimal solef_MontoSolicitud { get; set; }
+        public bool solef_EsAnulada { get; set; }
+        public string RazonAnulado { get; set; }
         public int solef_UsuarioCrea { get; set; }
         public System.DateTime solef_FechaCrea { get; set; }
         public Nullable<int> solef_UsuarioModifica { get; set; }
@@ -31,8 +35,9 @@ namespace ERP_ZORZAL.Models
     
         public virtual tbUsuario tbUsuario { get; set; }
         public virtual tbUsuario tbUsuario1 { get; set; }
+        public virtual tbUsuario tbUsuario2 { get; set; }
         public virtual tbMoneda tbMoneda { get; set; }
-        public virtual tbCaja tbCaja { get; set; }
+        public virtual tbMovimientoCaja tbMovimientoCaja { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<tbSolicitudEfectivoDetalle> tbSolicitudEfectivoDetalle { get; set; }
     }

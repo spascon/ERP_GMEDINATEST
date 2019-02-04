@@ -1,4 +1,4 @@
-﻿@model ERP_ZORZAL.Models.tbMoneda
+﻿@model ERP_GMEDINA.Models.tbMoneda
 
 @{
     ViewBag.Title = "Moneda";
@@ -8,18 +8,12 @@
 <div class="row wrapper border-bottom white-bg page-heading">
     <div class="col-sm-4">
         <h2>Moneda</h2>
-        <ol class="breadcrumb">
-            @*<li>
-                @Html.ActionLink("Registrar Moneda", "Index")
-            </li>*@
-            <li class="active">
-                @*<strong>Create</strong>*@
-            </li>
-        </ol>
+        
     </div>
     <div class="col-sm-8">
         <div class="title-action">
-            <a href="/Moneda/Index">Regresar</a>
+            <a href="@Url.Action("Index","Moneda")">Regresar</a>
+            @*<a href="/Moneda/Index">Regresar</a>*@
         </div>
     </div>
 </div>
@@ -42,65 +36,26 @@
     <div class="form-horizontal">
         @Html.ValidationSummary(true)
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.mnda_Id, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.mnda_Id)
-                @Html.ValidationMessageFor(model => model.mnda_Id)
-            </div>
-        </div>
+
 
         <div class="form-group">
-            @Html.LabelFor(model => model.mnda_Abreviatura, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <label class="control-label col-md-2">Abreviatura</label>
+
+            <div class="col-md-5">
                 @Html.EditorFor(model => model.mnda_Abreviatura)
-                @Html.ValidationMessageFor(model => model.mnda_Abreviatura)
-            </div>
+                <p style="color:red"> @Html.ValidationMessageFor(model => model.mnda_Abreviatura)
+</div>
         </div>
 
         <div class="form-group">
-            @Html.LabelFor(model => model.mnda_Nombre, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
+            <label class="control-label col-md-2">Nombre</label>
+
+            <div class="col-md-5">
                 @Html.EditorFor(model => model.mnda_Nombre)
-                @Html.ValidationMessageFor(model => model.mnda_Nombre)
-            </div>
+                <p style="color:red">@Html.ValidationMessageFor(model => model.mnda_Nombre)
+</div>
         </div>
 
-        @*<div class="form-group">
-            <label class="control-label- col-md-2">Usuario Crea</label>
-            @Html.LabelFor(model => model.mnda_UsuarioCrea, "mnda_UsuarioCrea", new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("mnda_UsuarioCrea", String.Empty)
-                @Html.ValidationMessageFor(model => model.mnda_UsuarioCrea)
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label- col-md-2">Fecha Crea</label>
-            @Html.LabelFor(model => model.mnda_FechaCrea, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.mnda_FechaCrea)
-                @Html.ValidationMessageFor(model => model.mnda_FechaCrea)
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label- col-md-2">Usuario Modifica</label>
-           @Html.LabelFor(model => model.mnda_UsuarioModifica, "mnda_UsuarioModifica", new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.DropDownList("mnda_UsuarioModifica", String.Empty)
-                @Html.ValidationMessageFor(model => model.mnda_UsuarioModifica)
-            </div>
-        </div>
-
-        <div class="form-group">
-            <label class="control-label- col-md-2">Fecha Modifica</label>
-            @Html.LabelFor(model => model.mnda_FechaModifica, new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.mnda_FechaModifica)
-                @Html.ValidationMessageFor(model => model.mnda_FechaModifica)
-            </div>
-        </div>*@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -122,3 +77,5 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }
+<script src="~/Scripts/jquery-3.3.1.js"></script>
+<script src="~/Scripts/app/Monedas.js"></script>

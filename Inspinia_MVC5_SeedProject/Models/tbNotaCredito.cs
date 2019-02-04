@@ -7,7 +7,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace ERP_ZORZAL.Models
+namespace ERP_GMEDINA.Models
 {
     using System;
     using System.Collections.Generic;
@@ -16,12 +16,17 @@ namespace ERP_ZORZAL.Models
     {
         public short nocre_Id { get; set; }
         public string nocre_Codigo { get; set; }
-        public int dev_Id { get; set; }
+        public Nullable<int> dev_Id { get; set; }
         public int clte_Id { get; set; }
+        public Nullable<int> suc_Id { get; set; }
+        public Nullable<short> cja_Id { get; set; }
         public Nullable<bool> nocre_Anulado { get; set; }
         public System.DateTime nocre_FechaEmision { get; set; }
         public string nocre_MotivoEmision { get; set; }
         public Nullable<decimal> nocre_Monto { get; set; }
+        public bool nocre_Redimido { get; set; }
+        public Nullable<System.DateTime> nocre_FechaRedimido { get; set; }
+        public bool nocre_EsImpreso { get; set; }
         public int nocre_UsuarioCrea { get; set; }
         public System.DateTime nocre_FechaCrea { get; set; }
         public Nullable<int> nocre_UsuarioModifica { get; set; }
@@ -29,7 +34,9 @@ namespace ERP_ZORZAL.Models
     
         public virtual tbUsuario tbUsuario { get; set; }
         public virtual tbUsuario tbUsuario1 { get; set; }
+        public virtual tbCaja tbCaja { get; set; }
         public virtual tbCliente tbCliente { get; set; }
         public virtual tbDevolucion tbDevolucion { get; set; }
+        public virtual tbSucursal tbSucursal { get; set; }
     }
 }
