@@ -173,8 +173,49 @@
     <Compile Include="FacturaControllerTest._CreateClienteTest.g.cs">
       <DependentUpon>FacturaControllerTest.cs</DependentUpon>
     </Compile>
+    <Compile Include="PagoControllerTest.AnularPagoTest.g.cs">
+      <DependentUpon>PagoControllerTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PagoControllerTest.ConstructorTest.g.cs">
+      <DependentUpon>PagoControllerTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PagoControllerTest.CreateTest.g.cs">
+      <DependentUpon>PagoControllerTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PagoControllerTest.cs" />
+    <Compile Include="PagoControllerTest.DeleteTest.g.cs">
+      <DependentUpon>PagoControllerTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PagoControllerTest.DetailsTest.g.cs">
+      <DependentUpon>PagoControllerTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PagoControllerTest.EditTest.g.cs">
+      <DependentUpon>PagoControllerTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="PagoControllerTest.EditTest01.g.cs">
+      <DependentUpon>PagoControllerTest.cs</DependentUpon>
+    </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\PexAssemblyInfo.cs" />
+    <Compile Include="SucursalControllerTest.ConstructorTest.g.cs">
+      <DependentUpon>SucursalControllerTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SucursalControllerTest.CreateTest.g.cs">
+      <DependentUpon>SucursalControllerTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SucursalControllerTest.CreateTest01.g.cs">
+      <DependentUpon>SucursalControllerTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SucursalControllerTest.cs" />
+    <Compile Include="SucursalControllerTest.DeleteTest.g.cs">
+      <DependentUpon>SucursalControllerTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SucursalControllerTest.DetailsTest.g.cs">
+      <DependentUpon>SucursalControllerTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="SucursalControllerTest.EditTest.g.cs">
+      <DependentUpon>SucursalControllerTest.cs</DependentUpon>
+    </Compile>
     <Compile Include="TipoPagoControllerTest.ConstructorTest.g.cs">
       <DependentUpon>TipoPagoControllerTest.cs</DependentUpon>
     </Compile>
