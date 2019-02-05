@@ -66,6 +66,31 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DenominacionControllerTest.ConstructorTest.g.cs">
+      <DependentUpon>DenominacionControllerTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DenominacionControllerTest.CreateTest.g.cs">
+      <DependentUpon>DenominacionControllerTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DenominacionControllerTest.CreateTest01.g.cs">
+      <DependentUpon>DenominacionControllerTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DenominacionControllerTest.cs" />
+    <Compile Include="DenominacionControllerTest.DeleteTest.g.cs">
+      <DependentUpon>DenominacionControllerTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DenominacionControllerTest.DetailsTest.g.cs">
+      <DependentUpon>DenominacionControllerTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DenominacionControllerTest.EditTest.g.cs">
+      <DependentUpon>DenominacionControllerTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DenominacionControllerTest.EditTest01.g.cs">
+      <DependentUpon>DenominacionControllerTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DenominacionControllerTest.IndexTest.g.cs">
+      <DependentUpon>DenominacionControllerTest.cs</DependentUpon>
+    </Compile>
     <Compile Include="DevolucionControllerTest.AnularDevolucionTest.g.cs">
       <DependentUpon>DevolucionControllerTest.cs</DependentUpon>
     </Compile>
