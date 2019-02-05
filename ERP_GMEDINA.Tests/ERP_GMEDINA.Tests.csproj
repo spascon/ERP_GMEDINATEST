@@ -66,6 +66,61 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DevolucionControllerTest.AnularDevolucionTest.g.cs">
+      <DependentUpon>DevolucionControllerTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DevolucionControllerTest.ConstructorTest.g.cs">
+      <DependentUpon>DevolucionControllerTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DevolucionControllerTest.CreateNotaCreditoTest.g.cs">
+      <DependentUpon>DevolucionControllerTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DevolucionControllerTest.CreateNotaCreditoTest01.g.cs">
+      <DependentUpon>DevolucionControllerTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DevolucionControllerTest.CreateTest.g.cs">
+      <DependentUpon>DevolucionControllerTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DevolucionControllerTest.CreateTest01.g.cs">
+      <DependentUpon>DevolucionControllerTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DevolucionControllerTest.cs" />
+    <Compile Include="DevolucionControllerTest.DeleteTest.g.cs">
+      <DependentUpon>DevolucionControllerTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DevolucionControllerTest.DetailsTest.g.cs">
+      <DependentUpon>DevolucionControllerTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DevolucionControllerTest.EditTest.g.cs">
+      <DependentUpon>DevolucionControllerTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DevolucionControllerTest.EditTest01.g.cs">
+      <DependentUpon>DevolucionControllerTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DevolucionControllerTest.EmitirNotaCreditoTest.g.cs">
+      <DependentUpon>DevolucionControllerTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DevolucionControllerTest.FiltrarModalProductoTest.g.cs">
+      <DependentUpon>DevolucionControllerTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DevolucionControllerTest.FiltrarModalTest.g.cs">
+      <DependentUpon>DevolucionControllerTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DevolucionControllerTest.InsertDevolucionTest.g.cs">
+      <DependentUpon>DevolucionControllerTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DevolucionControllerTest.RemoveDevolucionDetalleTest.g.cs">
+      <DependentUpon>DevolucionControllerTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DevolucionControllerTest.UpdateDevolucionDetalleTest.g.cs">
+      <DependentUpon>DevolucionControllerTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DevolucionControllerTest._CreateDevolucionDetalle1Test.g.cs">
+      <DependentUpon>DevolucionControllerTest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="DevolucionControllerTest._CreateDevolucionDetalleTest.g.cs">
+      <DependentUpon>DevolucionControllerTest.cs</DependentUpon>
+    </Compile>
     <Compile Include="FacturaControllerTest.AnularFacturaTest.g.cs">
       <DependentUpon>FacturaControllerTest.cs</DependentUpon>
     </Compile>
