@@ -74,6 +74,7 @@
     <Compile Include="BancoControllerTest.EditTest.g.cs" />
     <Compile Include="BancoControllerTest.EditTest01.g.cs" />
     <Compile Include="BancoControllerTest.IndexTest.g.cs" />
+    <Compile Include="CajaControllerTest.cs" />
     <Compile Include="ClienteControllerTest.ActivarClienteTest.g.cs" />
     <Compile Include="ClienteControllerTest.ConstructorTest.g.cs" />
     <Compile Include="ClienteControllerTest.CreateTest.g.cs" />

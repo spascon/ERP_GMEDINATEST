@@ -30,33 +30,52 @@ namespace ERP_ZORZAL.Controllers
         [HttpPost]
         public JsonResult InsertDevolucion(tbDevolucionDetalle DetalleDevolucioncont)
         {
-            List<tbDevolucionDetalle> sessionDevolucionDetalle = new List<tbDevolucionDetalle>();
-            var list = (List<tbDevolucionDetalle>)Session["Devolucion"];
-            if (list == null)
+            try
             {
-                sessionDevolucionDetalle.Add(DetalleDevolucioncont);
-                Session["Devolucion"] = sessionDevolucionDetalle;
+                List<tbDevolucionDetalle> sessionDevolucionDetalle = new List<tbDevolucionDetalle>();
+                var list = (List<tbDevolucionDetalle>)Session["Devolucion"];
+                if (list == null)
+                {
+                    sessionDevolucionDetalle.Add(DetalleDevolucioncont);
+                    Session["Devolucion"] = sessionDevolucionDetalle;
+                }
+                else
+                {
+                    list.Add(DetalleDevolucioncont);
+                    Session["Devolucion"] = list;
+                }
+                return Json("Exito", JsonRequestBehavior.AllowGet);
             }
-            else
+            catch (Exception Ex)
             {
-                list.Add(DetalleDevolucioncont);
-                Session["Devolucion"] = list;
+                ModelState.AddModelError("", "Error al Acceder" + Ex.Message.ToString());
+                return Json("", JsonRequestBehavior.AllowGet);
+
             }
-            return Json("Exito", JsonRequestBehavior.AllowGet);
+         
         }
 
         [HttpPost]
         public JsonResult RemoveDevolucionDetalle(tbDevolucionDetalle DetalleDevolucioncont)
         {
-            var list = (List<tbDevolucionDetalle>)Session["Devolucion"];
-
-            if (list != null)
+            try
             {
-                var itemToRemove = list.Single(r => r.devd_Id == DetalleDevolucioncont.devd_Id);
-                list.Remove(itemToRemove);
-                Session["Devolucion"] = list;
+                var list = (List<tbDevolucionDetalle>)Session["Devolucion"];
+
+                if (list != null)
+                {
+                    var itemToRemove = list.Single(r => r.devd_Id == DetalleDevolucioncont.devd_Id);
+                    list.Remove(itemToRemove);
+                    Session["Devolucion"] = list;
+                }
+                return Json("", JsonRequestBehavior.AllowGet);
             }
-            return Json("", JsonRequestBehavior.AllowGet);
+            catch (Exception Ex)
+            {
+                ModelState.AddModelError("", "Error al Acceder" + Ex.Message.ToString());
+                return Json("", JsonRequestBehavior.AllowGet);
+            }
+          
         }
 
 
@@ -120,16 +139,18 @@ namespace ERP_ZORZAL.Controllers
         public ActionResult Create([Bind(Include = "fact_Id, cja_Id, dev_Fecha, dev_Estado")] tbDevolucion tbDevolucion)
 
         {
-            var list = (List<tbDevolucionDetalle>)Session["Devolucion"];
-            var MensajeError = "";
-            var MensajeErrorDetalle = "";
-            IEnumerable<object> listDevolucion = null;
-            IEnumerable<object> listDevolucionDetalle = null;
-            tbDevolucionDetalle cDevolucionDetalle = new tbDevolucionDetalle();
+           
             if (ModelState.IsValid)
             {
                 try
                 {
+
+                    var list = (List<tbDevolucionDetalle>)Session["Devolucion"];
+                    var MensajeError = "";
+                    var MensajeErrorDetalle = "";
+                    IEnumerable<object> listDevolucion = null;
+                    IEnumerable<object> listDevolucionDetalle = null;
+                    tbDevolucionDetalle cDevolucionDetalle = new tbDevolucionDetalle();
                     using (TransactionScope Tran = new TransactionScope())
                     {
                         listDevolucion = db.UDP_Vent_tbDevolucion_Insert(
@@ -253,16 +274,17 @@ namespace ERP_ZORZAL.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "dev_Id,fact_Id,cja_Id,dev_Fecha,dev_Estado,dev_UsuarioCrea,dev_FechaCrea,dev_UsuarioModifica,dev_FechaModifica")] tbDevolucion tbDevolucion)
         {
-            var list = (List<tbDevolucionDetalle>)Session["Devolucion"];
-            var MensajeError = "";
-            var MensajeErrorDetalle = "";
-            IEnumerable<object> listDevolucion = null;
-            IEnumerable<object> listDevolucionDetalle = null;
-            tbDevolucionDetalle cDevolucionDetalle = new tbDevolucionDetalle();
+           
             if (ModelState.IsValid)
             {
                 try
                 {
+                    var list = (List<tbDevolucionDetalle>)Session["Devolucion"];
+                    var MensajeError = "";
+                    var MensajeErrorDetalle = "";
+                    IEnumerable<object> listDevolucion = null;
+                    IEnumerable<object> listDevolucionDetalle = null;
+                    tbDevolucionDetalle cDevolucionDetalle = new tbDevolucionDetalle();
                     using (TransactionScope Tran = new TransactionScope())
                     {
                         listDevolucion = db.UDP_Vent_tbDevolucion_Update(
@@ -481,52 +503,70 @@ namespace ERP_ZORZAL.Controllers
 
         public ActionResult EmitirNotaCredito(tbDevolucion Devolucion)
         {
-            Session["IDDEVOLUCION"] = Session["ID"];
-            Session["FECHADEV"] = Session["FECHA"];
-            Session["RTN"] = Session["RTNCLIENTE"];
-            Session["NOMBRECLIENTE"] = Session["NOMBRE"];
-            Session["MONTODEV"] = Session["MONTO"];
-            return RedirectToAction("CreateNotaCredito", "Devolucion");
+            try
+            {
+                Session["IDDEVOLUCION"] = Session["ID"];
+                Session["FECHADEV"] = Session["FECHA"];
+                Session["RTN"] = Session["RTNCLIENTE"];
+                Session["NOMBRECLIENTE"] = Session["NOMBRE"];
+                Session["MONTODEV"] = Session["MONTO"];
+                return RedirectToAction("CreateNotaCredito", "Devolucion");
+            }
+            catch (Exception Ex) {
+                ModelState.AddModelError("", "Error al Acceder" + Ex.Message.ToString());
+                return RedirectToAction("CreateNotaCredito", "Devolucion");
+            }
+    
         }
 
 
         public ActionResult CreateNotaCredito()
         {
-            if (Session["IDDEVOLUCION"] == null)
+            try
             {
-                ViewBag.IdDev = 0;
-                ViewBag.fechaDev = "";
-                ViewBag.Identificacion = "";
-                ViewBag.Nombres = "";
-                ViewBag.montodev = 0;
-                Session["PEDIDO"] = 0;
-            }
-            else
-            {
-                int? id = (int)Session["IDDEVOLUCION"];
-                ViewBag.IdDev = id;
-                DateTime? fechad = (DateTime)Session["FECHADEV"];
-                ViewBag.fechaDev = fechad;
-                string identificacion = (string)Session["RTN"];
-                ViewBag.Identificacion = identificacion;
-                string nombres = (string)Session["NOMBRECLIENTE"];
-                ViewBag.Nombres = nombres;
-                //int montod = (Int32)Session["MONTODEV"];
-                //ViewBag.montodev = montod;
+                if (Session["IDDEVOLUCION"] == null)
+                {
+                    ViewBag.IdDev = 0;
+                    ViewBag.fechaDev = "";
+                    ViewBag.Identificacion = "";
+                    ViewBag.Nombres = "";
+                    ViewBag.montodev = 0;
+                    Session["PEDIDO"] = 0;
+                }
+                else
+                {
+                    int? id = (int)Session["IDDEVOLUCION"];
+                    ViewBag.IdDev = id;
+                    DateTime? fechad = (DateTime)Session["FECHADEV"];
+                    ViewBag.fechaDev = fechad;
+                    string identificacion = (string)Session["RTN"];
+                    ViewBag.Identificacion = identificacion;
+                    string nombres = (string)Session["NOMBRECLIENTE"];
+                    ViewBag.Nombres = nombres;
+                    //int montod = (Int32)Session["MONTODEV"];
+                    //ViewBag.montodev = montod;
+                }
+
+                ViewBag.dev_Id = new SelectList(db.tbDevolucion, "dev_Id", "dev_Id");
+                ViewBag.Devolucion = db.tbDevolucionDetalle.ToList();
+                ViewBag.Cliente = db.tbCliente.ToList();
+
+                Session["IDDEVOLUCION"] = null;
+                Session["FECHADEV"] = null;
+                Session["RTN"] = null;
+                Session["NOMBRECLIENTE"] = null;
+                Session["MONTODEV"] = null;
+
+                return View();
             }
 
-            ViewBag.dev_Id = new SelectList(db.tbDevolucion, "dev_Id", "dev_Id");
-            ViewBag.Devolucion = db.tbDevolucionDetalle.ToList();
-            ViewBag.Cliente = db.tbCliente.ToList();
-
+            catch (Exception Ex)
+            {
+                ModelState.AddModelError("", "Error al Acceder" + Ex.Message.ToString());
+                return View();
+            }
           
-            Session["IDDEVOLUCION"] = null;
-            Session["FECHADEV"] = null;
-            Session["RTN"] = null;
-            Session["NOMBRECLIENTE"] = null;
-            Session["MONTODEV"] = null;
-
-            return View();
+          
         }
 
         [HttpPost]
