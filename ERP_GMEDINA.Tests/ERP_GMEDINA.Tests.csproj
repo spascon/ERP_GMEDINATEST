@@ -66,6 +66,31 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BancoControllerTest.ConstructorTest.g.cs" />
+    <Compile Include="BancoControllerTest.CreateTest.g.cs" />
+    <Compile Include="BancoControllerTest.CreateTest01.g.cs" />
+    <Compile Include="BancoControllerTest.cs" />
+    <Compile Include="BancoControllerTest.DetailsTest.g.cs" />
+    <Compile Include="BancoControllerTest.EditTest.g.cs" />
+    <Compile Include="BancoControllerTest.EditTest01.g.cs" />
+    <Compile Include="BancoControllerTest.IndexTest.g.cs" />
+    <Compile Include="ClienteControllerTest.ActivarClienteTest.g.cs" />
+    <Compile Include="ClienteControllerTest.ConstructorTest.g.cs" />
+    <Compile Include="ClienteControllerTest.CreateTest.g.cs" />
+    <Compile Include="ClienteControllerTest.CreateTest01.g.cs" />
+    <Compile Include="ClienteControllerTest.cs" />
+    <Compile Include="ClienteControllerTest.DeleteTest.g.cs" />
+    <Compile Include="ClienteControllerTest.DetailsTest.g.cs" />
+    <Compile Include="ClienteControllerTest.EditTest.g.cs" />
+    <Compile Include="ClienteControllerTest.EditTest01.g.cs" />
+    <Compile Include="ClienteControllerTest.InactivarClienteTest.g.cs" />
+    <Compile Include="CuentaBancoControllerTest.ConstructorTest.g.cs" />
+    <Compile Include="CuentaBancoControllerTest.CreateTest01.g.cs" />
+    <Compile Include="CuentaBancoControllerTest.cs" />
+    <Compile Include="CuentaBancoControllerTest.DeleteTest.g.cs" />
+    <Compile Include="CuentaBancoControllerTest.DetailsTest.g.cs" />
+    <Compile Include="CuentaBancoControllerTest.EditTest.g.cs" />
+    <Compile Include="CuentaBancoControllerTest.IndexTest.g.cs" />
     <Compile Include="DenominacionControllerTest.ConstructorTest.g.cs">
       <DependentUpon>DenominacionControllerTest.cs</DependentUpon>
     </Compile>
@@ -146,6 +171,25 @@
     <Compile Include="DevolucionControllerTest._CreateDevolucionDetalleTest.g.cs">
       <DependentUpon>DevolucionControllerTest.cs</DependentUpon>
     </Compile>
+    <Compile Include="EstadoFacturaControllerTest.ConstructorTest.g.cs" />
+    <Compile Include="EstadoFacturaControllerTest.CreateTest.g.cs" />
+    <Compile Include="EstadoFacturaControllerTest.CreateTest01.g.cs" />
+    <Compile Include="EstadoFacturaControllerTest.cs" />
+    <Compile Include="EstadoFacturaControllerTest.DeleteTest.g.cs" />
+    <Compile Include="EstadoFacturaControllerTest.DetailsTest.g.cs" />
+    <Compile Include="EstadoFacturaControllerTest.EditTest.g.cs" />
+    <Compile Include="EstadoFacturaControllerTest.EditTest01.g.cs" />
+    <Compile Include="Factories\BancoControllerFactory.cs" />
+    <Compile Include="Factories\ClienteControllerFactory.cs" />
+    <Compile Include="Factories\CuentaBancoControllerFactory.cs" />
+    <Compile Include="Factories\DbSetFactory.cs" />
+    <Compile Include="Factories\EstadoFacturaControllerFactory.cs" />
+    <Compile Include="Factories\MovimientoCajaControllerFactory.cs" />
+    <Compile Include="Factories\PedidoControllerFactory.cs" />
+    <Compile Include="Factories\PuntoEmisionControllerFactory.cs" />
+    <Compile Include="Factories\RouteDataFactory.cs" />
+    <Compile Include="Factories\SolicitudEfectivoControllerFactory.cs" />
+    <Compile Include="Factories\tbSolicitudEfectivoFactory.cs" />
     <Compile Include="FacturaControllerTest.AnularFacturaTest.g.cs">
       <DependentUpon>FacturaControllerTest.cs</DependentUpon>
     </Compile>
@@ -198,6 +242,14 @@
     <Compile Include="FacturaControllerTest._CreateClienteTest.g.cs">
       <DependentUpon>FacturaControllerTest.cs</DependentUpon>
     </Compile>
+    <Compile Include="MovimientoCajaControllerTest.ConstructorTest.g.cs" />
+    <Compile Include="MovimientoCajaControllerTest.CreateAperturaTest.g.cs" />
+    <Compile Include="MovimientoCajaControllerTest.cs" />
+    <Compile Include="MovimientoCajaControllerTest.SaveSolicitudEfectivoDetalleTest.g.cs" />
+    <Compile Include="MovimientoCajaControllerTest.SaveSolicitudEfectivoMonedaTest.g.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
+    <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
     <Compile Include="PagoControllerTest.AnularPagoTest.g.cs">
       <DependentUpon>PagoControllerTest.cs</DependentUpon>
     </Compile>
@@ -220,8 +272,26 @@
     <Compile Include="PagoControllerTest.EditTest01.g.cs">
       <DependentUpon>PagoControllerTest.cs</DependentUpon>
     </Compile>
+    <Compile Include="PedidoControllerTest.ConstructorTest.g.cs" />
+    <Compile Include="PedidoControllerTest.cs" />
+    <Compile Include="PedidoControllerTest.EditPedidoTest.g.cs" />
+    <Compile Include="PedidoControllerTest.FacturarTest.g.cs" />
+    <Compile Include="PedidoControllerTest.GuardarPedidoDetalleTest.g.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\PexAssemblyInfo.cs" />
+    <Compile Include="PuntoEmisionControllerTest.ConstructorTest.g.cs" />
+    <Compile Include="PuntoEmisionControllerTest.CreateTest.g.cs" />
+    <Compile Include="PuntoEmisionControllerTest.CreateTest01.g.cs" />
+    <Compile Include="PuntoEmisionControllerTest.cs" />
+    <Compile Include="PuntoEmisionControllerTest.DeleteTest.g.cs" />
+    <Compile Include="PuntoEmisionControllerTest.DetailsTest.g.cs" />
+    <Compile Include="PuntoEmisionControllerTest.EditTest.g.cs" />
+    <Compile Include="PuntoEmisionControllerTest.RemovePuntoEmisionDetalleTest.g.cs" />
+    <Compile Include="PuntoEmisionControllerTest.SavePuntoEmisionDetalleTest.g.cs" />
+    <Compile Include="SolicitudEfectivoControllerTest.ConstructorTest.g.cs" />
+    <Compile Include="SolicitudEfectivoControllerTest.cs" />
+    <Compile Include="SolicitudEfectivoControllerTest.EditEntregaEfectivoTest.g.cs" />
+    <Compile Include="SolicitudEfectivoControllerTest.EditEntregaEfectivoTest01.g.cs" />
     <Compile Include="SucursalControllerTest.ConstructorTest.g.cs">
       <DependentUpon>SucursalControllerTest.cs</DependentUpon>
     </Compile>
@@ -266,7 +336,67 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="app.config" />
+    <None Include="bin\Debug\ERP_GMEDINA.Tests.dll.config" />
+    <None Include="obj\Debug\DesignTimeResolveAssemblyReferencesInput.cache" />
+    <None Include="obj\Debug\ERP_GMEDINA.Tests.csprojResolveAssemblyReference.cache" />
     <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="bin\Debug\EntityFramework.dll" />
+    <Content Include="bin\Debug\EntityFramework.SqlServer.dll" />
+    <Content Include="bin\Debug\EntityFramework.SqlServer.xml" />
+    <Content Include="bin\Debug\EntityFramework.xml" />
+    <Content Include="bin\Debug\ERP_GMEDINA.dll" />
+    <Content Include="bin\Debug\ERP_GMEDINA.pdb" />
+    <Content Include="bin\Debug\ERP_GMEDINA.Tests.dll" />
+    <Content Include="bin\Debug\ERP_GMEDINA.Tests.pdb" />
+    <Content Include="bin\Debug\es\Microsoft.ExtendedReflection.resources.dll" />
+    <Content Include="bin\Debug\es\Microsoft.Pex.Framework.resources.dll" />
+    <Content Include="bin\Debug\es\Microsoft.VisualStudio.QualityTools.UnitTestFramework.resources.dll" />
+    <Content Include="bin\Debug\Microsoft.AspNet.Identity.Core.dll" />
+    <Content Include="bin\Debug\Microsoft.AspNet.Identity.Core.xml" />
+    <Content Include="bin\Debug\Microsoft.AspNet.Identity.EntityFramework.dll" />
+    <Content Include="bin\Debug\Microsoft.AspNet.Identity.EntityFramework.xml" />
+    <Content Include="bin\Debug\Microsoft.AspNet.Identity.Owin.dll" />
+    <Content Include="bin\Debug\Microsoft.AspNet.Identity.Owin.xml" />
+    <Content Include="bin\Debug\Microsoft.ExtendedReflection.dll" />
+    <Content Include="bin\Debug\Microsoft.ExtendedReflection.Reasoning.dll" />
+    <Content Include="bin\Debug\Microsoft.Owin.dll" />
+    <Content Include="bin\Debug\Microsoft.Owin.Host.SystemWeb.dll" />
+    <Content Include="bin\Debug\Microsoft.Owin.Host.SystemWeb.xml" />
+    <Content Include="bin\Debug\Microsoft.Owin.Security.Cookies.dll" />
+    <Content Include="bin\Debug\Microsoft.Owin.Security.Cookies.xml" />
+    <Content Include="bin\Debug\Microsoft.Owin.Security.dll" />
+    <Content Include="bin\Debug\Microsoft.Owin.Security.xml" />
+    <Content Include="bin\Debug\Microsoft.Owin.xml" />
+    <Content Include="bin\Debug\Microsoft.Pex.Framework.dll" />
+    <Content Include="bin\Debug\Microsoft.Pex.Framework.xml" />
+    <Content Include="bin\Debug\Microsoft.VisualStudio.QualityTools.UnitTestFramework.dll" />
+    <Content Include="bin\Debug\Microsoft.Web.Infrastructure.dll" />
+    <Content Include="bin\Debug\Owin.dll" />
+    <Content Include="bin\Debug\System.ComponentModel.DataAnnotations.dll" />
+    <Content Include="bin\Debug\System.Web.Mvc.dll" />
+    <Content Include="bin\Debug\System.Web.Mvc.xml" />
+    <Content Include="bin\Debug\System.Web.Optimization.dll" />
+    <Content Include="bin\Debug\System.Web.Optimization.xml" />
+    <Content Include="bin\Debug\System.Web.Razor.dll" />
+    <Content Include="bin\Debug\System.Web.Razor.xml" />
+    <Content Include="bin\Debug\System.Web.WebPages.Deployment.dll" />
+    <Content Include="bin\Debug\System.Web.WebPages.Deployment.xml" />
+    <Content Include="bin\Debug\System.Web.WebPages.dll" />
+    <Content Include="bin\Debug\System.Web.WebPages.Razor.dll" />
+    <Content Include="bin\Debug\System.Web.WebPages.Razor.xml" />
+    <Content Include="bin\Debug\System.Web.WebPages.xml" />
+    <Content Include="obj\Debug\ERP_GMEDINA.Tests.csproj.FileListAbsolute.txt" />
+    <Content Include="obj\Debug\ERP_GMEDINA.Tests.dll" />
+    <Content Include="obj\Debug\ERP_GMEDINA.Tests.pdb" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="bin\Debug\reports\190205.200741.11236.pex\dg\" />
+    <Folder Include="bin\Debug\reports\190205.200741.11236.pex\fix\out\" />
+    <Folder Include="bin\Debug\reports\190205.200741.11236.pex\tests\" />
+    <Folder Include="bin\Release\" />
+    <Folder Include="obj\Debug\TempPE\" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">

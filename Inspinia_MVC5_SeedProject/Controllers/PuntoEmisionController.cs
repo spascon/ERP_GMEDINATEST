@@ -42,19 +42,28 @@ namespace ERP_ZORZAL.Controllers
         // GET: /PuntoEmision/Create
         public ActionResult Create()
         {
-            //PuntoEmision
-            tbPuntoEmision PuntoEmision = new tbPuntoEmision();
-            ViewBag.pemi_Id = new SelectList(db.tbPuntoEmision, "pemi_Id", "pemi_NumeroCAI", PuntoEmision.pemi_Id);
+            try
+            {
+                //PuntoEmision
+                tbPuntoEmision PuntoEmision = new tbPuntoEmision();
+                ViewBag.pemi_Id = new SelectList(db.tbPuntoEmision, "pemi_Id", "pemi_NumeroCAI", PuntoEmision.pemi_Id);
 
-            //PuntoEmisionDetalle
-            tbPuntoEmisionDetalle tbPuntoEmisionDetalle = new tbPuntoEmisionDetalle();
-            ViewBag.dfisc_Id = new SelectList(db.tbDocumentoFiscal, "dfisc_Id", "dfisc_Descripcion", tbPuntoEmisionDetalle.dfisc_Id);
+                //PuntoEmisionDetalle
+                tbPuntoEmisionDetalle tbPuntoEmisionDetalle = new tbPuntoEmisionDetalle();
+                ViewBag.dfisc_Id = new SelectList(db.tbDocumentoFiscal, "dfisc_Id", "dfisc_Descripcion", tbPuntoEmisionDetalle.dfisc_Id);
 
-            //Vistas parciales
-            ViewBag.PuntoEmisionDetalle = db.tbPuntoEmisionDetalle.ToList();
+                //Vistas parciales
+                ViewBag.PuntoEmisionDetalle = db.tbPuntoEmisionDetalle.ToList();
 
-            Session["PuntoEmision"] = null;
-            return View();
+                Session["PuntoEmision"] = null;
+                return View();
+            }
+            catch (Exception Ex)
+            {
+                ModelState.AddModelError("", "Error al Acceder" + Ex.Message.ToString());
+                return View();
+            }
+
         }
 
         // POST: /PuntoEmision/Create
@@ -62,15 +71,9 @@ namespace ERP_ZORZAL.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include="pemi_NumeroCAI,tbUsuario,tbUsuario1")] tbPuntoEmision tbPuntoEmision)
+        public ActionResult Create([Bind(Include = "pemi_NumeroCAI,tbUsuario,tbUsuario1")] tbPuntoEmision tbPuntoEmision)
         {
-            var list = (List<tbPuntoEmisionDetalle>)Session["PuntoEmision"];
-            string MensajeError = "";
-            var MensajeErrorDetalle = "";
-            IEnumerable<object> listPuntoEmision = null;
-            IEnumerable<object> listPuntoEmisionDetalle = null;
-            tbPuntoEmisionDetalle cPuntoEmisionDetalle = new tbPuntoEmisionDetalle();
-
+            
             if (db.tbPuntoEmision.Any(a => a.pemi_NumeroCAI == tbPuntoEmision.pemi_NumeroCAI))
             {
                 ModelState.AddModelError("", "Ya existe este Número CAI.");
@@ -80,13 +83,20 @@ namespace ERP_ZORZAL.Controllers
 
                 try
                 {
+                    var list = (List<tbPuntoEmisionDetalle>)Session["PuntoEmision"];
+                    string MensajeError = "";
+                    var MensajeErrorDetalle = "";
+                    IEnumerable<object> listPuntoEmision = null;
+                    IEnumerable<object> listPuntoEmisionDetalle = null;
+                    tbPuntoEmisionDetalle cPuntoEmisionDetalle = new tbPuntoEmisionDetalle();
+
                     using (TransactionScope Tran = new TransactionScope())
                     {
                         listPuntoEmision = db.UDP_Vent_tbPuntoEmision_Insert(
                             tbPuntoEmision.pemi_NumeroCAI
                             );
                         foreach (UDP_Vent_tbPuntoEmision_Insert_Result PuntoEmisionL in listPuntoEmision)
-                        MensajeError = PuntoEmisionL.MensajeError;
+                            MensajeError = PuntoEmisionL.MensajeError;
                         if (MensajeError == "-1")
                         {
                             ModelState.AddModelError("", "No se pudo agregar el registro");
@@ -138,12 +148,14 @@ namespace ERP_ZORZAL.Controllers
                 }
                 catch (Exception Ex)
                 {
+                    tbPuntoEmisionDetalle cPuntoEmisionDetalle = new tbPuntoEmisionDetalle();
                     ViewBag.dfisc_Id = new SelectList(db.tbDocumentoFiscal, "dfisc_Id", "dfisc_Descripcion", cPuntoEmisionDetalle.dfisc_Id);
                     ModelState.AddModelError("", "No se pudo agregar el registro" + Ex.Message.ToString());
                     return View(tbPuntoEmision);
                 }
             }
-            ViewBag.dfisc_Id = new SelectList(db.tbDocumentoFiscal, "dfisc_Id", "dfisc_Descripcion", cPuntoEmisionDetalle.dfisc_Id);
+            tbPuntoEmisionDetalle PuntoEmisionDetalles = new tbPuntoEmisionDetalle();
+            ViewBag.dfisc_Id = new SelectList(db.tbDocumentoFiscal, "dfisc_Id", "dfisc_Descripcion", PuntoEmisionDetalles.dfisc_Id);
             return View(tbPuntoEmision);
         }
 
@@ -169,7 +181,7 @@ namespace ERP_ZORZAL.Controllers
             {
                 ViewBag.Validacion = "1";
             }
-            
+
             return View(tbPuntoEmision);
         }
 
@@ -178,7 +190,7 @@ namespace ERP_ZORZAL.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include= "pemi_Id,pemi_NumeroCAI,pemi_UsuarioCrea,pemi_FechaCrea,pemi_UsuarioModifica,pemi_FechaModifica,tbUsuario,tbUsuario1")] tbPuntoEmision PuntoEmision)
+        public ActionResult Edit([Bind(Include = "pemi_Id,pemi_NumeroCAI,pemi_UsuarioCrea,pemi_FechaCrea,pemi_UsuarioModifica,pemi_FechaModifica,tbUsuario,tbUsuario1")] tbPuntoEmision PuntoEmision)
         {
             if (db.tbPuntoEmision.Any(a => a.pemi_NumeroCAI == PuntoEmision.pemi_NumeroCAI))
             {
@@ -188,24 +200,24 @@ namespace ERP_ZORZAL.Controllers
             {
                 try
                 {
-                        string MensajeError = "";
-                        IEnumerable<object> list = null;
-                        list = db.UDP_Vent_tbPuntoEmision_Update(
-                            PuntoEmision.pemi_Id,
-                            PuntoEmision.pemi_NumeroCAI,
-                            PuntoEmision.pemi_UsuarioCrea,
-                            PuntoEmision.pemi_FechaCrea);
-                        foreach (UDP_Vent_tbPuntoEmision_Update_Result puntoemision in list)
-                            MensajeError = puntoemision.MensajeError;
-                        if (MensajeError == "-1")
-                        {
-                            ModelState.AddModelError("", "No se pudo actualizar el registro, favor contacte al administrador.");
-                            return View(PuntoEmision);
-                        }
-                        else
-                        {
-                            return RedirectToAction("Index");
-                        }
+                    string MensajeError = "";
+                    IEnumerable<object> list = null;
+                    list = db.UDP_Vent_tbPuntoEmision_Update(
+                        PuntoEmision.pemi_Id,
+                        PuntoEmision.pemi_NumeroCAI,
+                        PuntoEmision.pemi_UsuarioCrea,
+                        PuntoEmision.pemi_FechaCrea);
+                    foreach (UDP_Vent_tbPuntoEmision_Update_Result puntoemision in list)
+                        MensajeError = puntoemision.MensajeError;
+                    if (MensajeError == "-1")
+                    {
+                        ModelState.AddModelError("", "No se pudo actualizar el registro, favor contacte al administrador.");
+                        return View(PuntoEmision);
+                    }
+                    else
+                    {
+                        return RedirectToAction("Index");
+                    }
                 }
                 catch (Exception Ex)
                 {
@@ -254,76 +266,95 @@ namespace ERP_ZORZAL.Controllers
                 db.Dispose();
             }
             base.Dispose(disposing);
-        }       
+        }
 
         [HttpPost]
         public JsonResult SavePuntoEmisionDetalle(tbPuntoEmisionDetalle PuntoEmisionDet)
         {
-            List<tbPuntoEmisionDetalle> sessionPuntoEmisionDetalle = new List<tbPuntoEmisionDetalle>();
-            var list = (List<tbPuntoEmisionDetalle>)Session["PuntoEmision"];
-            if (list == null)
+            try
             {
-                sessionPuntoEmisionDetalle.Add(PuntoEmisionDet);
-                Session["PuntoEmision"] = sessionPuntoEmisionDetalle;
+                List<tbPuntoEmisionDetalle> sessionPuntoEmisionDetalle = new List<tbPuntoEmisionDetalle>();
+                var list = (List<tbPuntoEmisionDetalle>)Session["PuntoEmision"];
+                if (list == null)
+                {
+                    sessionPuntoEmisionDetalle.Add(PuntoEmisionDet);
+                    Session["PuntoEmision"] = sessionPuntoEmisionDetalle;
+                }
+                else
+                {
+                    list.Add(PuntoEmisionDet);
+                    Session["PuntoEmision"] = list;
+                }
+                return Json("Exito", JsonRequestBehavior.AllowGet);
             }
-            else
+            catch (Exception Ex)
             {
-                list.Add(PuntoEmisionDet);
-                Session["PuntoEmision"] = list;
+                Ex.Message.ToString();
+                return Json("Falló", JsonRequestBehavior.AllowGet);
             }
-            return Json("Exito", JsonRequestBehavior.AllowGet);
+
         }
 
         [HttpPost]
         public JsonResult RemovePuntoEmisionDetalle(tbPuntoEmisionDetalle PuntoEmisionDet)
         {
-            var list = (List<tbPuntoEmisionDetalle>)Session["PuntoEmision"];
-
-            if (list != null)
+            try
             {
-                var itemToRemove = list.Single(r => r.pemid_Id == PuntoEmisionDet.pemid_Id);
-                list.Remove(itemToRemove);
-                Session["PuntoEmision"] = list;
+                var list = (List<tbPuntoEmisionDetalle>)Session["PuntoEmision"];
+
+                if (list != null)
+                {
+                    var itemToRemove = list.Single(r => r.pemid_Id == PuntoEmisionDet.pemid_Id);
+                    list.Remove(itemToRemove);
+                    Session["PuntoEmision"] = list;
+                }
+                return Json("", JsonRequestBehavior.AllowGet);
             }
-            return Json("", JsonRequestBehavior.AllowGet);
+            catch (Exception Ex)
+            {
+                Ex.Message.ToString();
+                return Json("Falló", JsonRequestBehavior.AllowGet);
+            }
+
+
         }
 
         [HttpPost]
-        public JsonResult SaveEditNumeracion (tbPuntoEmisionDetalle EditPuntoEmisionDetalle)
+        public JsonResult SaveEditNumeracion(tbPuntoEmisionDetalle EditPuntoEmisionDetalle)
         {
             string MensajeEdit = "";
-            
+
             try
+            {
+                string MensajeError = "";
+                IEnumerable<object> list = null;
+                list = db.UDP_Vent_tbPuntoEmisionDetalle_Update(
+                            EditPuntoEmisionDetalle.pemid_Id,
+                            EditPuntoEmisionDetalle.dfisc_Id,
+                            EditPuntoEmisionDetalle.pemid_RangoInicio,
+                            EditPuntoEmisionDetalle.pemid_RangoFinal,
+                            EditPuntoEmisionDetalle.pemid_NumeroActual,
+                            EditPuntoEmisionDetalle.pemid_FechaLimite,
+                            EditPuntoEmisionDetalle.pemid_UsuarioCrea,
+                            EditPuntoEmisionDetalle.pemid_FechaCrea);
+                foreach (UDP_Vent_tbPuntoEmisionDetalle_Update_Result puntoemisiondetalle in list)
+                    MensajeError = puntoemisiondetalle.MensajeError;
+                MensajeEdit = "El registro se guardó exitosamente";
+                if (MensajeError == "-1")
                 {
-                        string MensajeError = "";
-                        IEnumerable<object> list = null;
-                        list = db.UDP_Vent_tbPuntoEmisionDetalle_Update(
-                                    EditPuntoEmisionDetalle.pemid_Id,
-                                    EditPuntoEmisionDetalle.dfisc_Id,
-                                    EditPuntoEmisionDetalle.pemid_RangoInicio,
-                                    EditPuntoEmisionDetalle.pemid_RangoFinal,
-                                    EditPuntoEmisionDetalle.pemid_NumeroActual,
-                                    EditPuntoEmisionDetalle.pemid_FechaLimite,
-                                    EditPuntoEmisionDetalle.pemid_UsuarioCrea,
-                                    EditPuntoEmisionDetalle.pemid_FechaCrea);
-                        foreach (UDP_Vent_tbPuntoEmisionDetalle_Update_Result puntoemisiondetalle in list)
-                            MensajeError = puntoemisiondetalle.MensajeError;
-                            MensajeEdit = "El registro se guardó exitosamente";
-                        if (MensajeError == "-1")
-                        {
-                            MensajeEdit = "No se pudo actualizar el registro, favor contacte al administrador.";
-                            ModelState.AddModelError("", MensajeEdit);
-                        }
-               }
-               catch (Exception Ex)
-               {
-                    MensajeEdit = Ex.Message.ToString();
-                    ViewBag.dfisc_Id = new SelectList(db.tbDocumentoFiscal, "dfisc_Id", "dfisc_Descripcion", EditPuntoEmisionDetalle.dfisc_Id);
+                    MensajeEdit = "No se pudo actualizar el registro, favor contacte al administrador.";
                     ModelState.AddModelError("", MensajeEdit);
                 }
+            }
+            catch (Exception Ex)
+            {
+                MensajeEdit = Ex.Message.ToString();
+                ViewBag.dfisc_Id = new SelectList(db.tbDocumentoFiscal, "dfisc_Id", "dfisc_Descripcion", EditPuntoEmisionDetalle.dfisc_Id);
+                ModelState.AddModelError("", MensajeEdit);
+            }
             return Json(MensajeEdit, JsonRequestBehavior.AllowGet);
         }
-        
+
         [HttpPost]
         public JsonResult SaveCreateNumeracion(tbPuntoEmisionDetalle CreatePuntoEmisionDetalle)
         {
@@ -342,7 +373,7 @@ namespace ERP_ZORZAL.Controllers
                             CreatePuntoEmisionDetalle.pemid_FechaLimite);
                 foreach (UDP_Vent_tbPuntoEmisionDetalle_Insert_Result puntoemisiondetalle in list)
                     MensajeError = puntoemisiondetalle.MensajeError;
-                    Msj = "El registro se guardo exitosamente";
+                Msj = "El registro se guardo exitosamente";
                 if (MensajeError == "-1")
                 {
                     Msj = "No se pudo actualizar el registro, favor contacte al administrador.";
@@ -358,6 +389,6 @@ namespace ERP_ZORZAL.Controllers
             return Json(Msj, JsonRequestBehavior.AllowGet);
         }
 
-        
+
     }
 }
