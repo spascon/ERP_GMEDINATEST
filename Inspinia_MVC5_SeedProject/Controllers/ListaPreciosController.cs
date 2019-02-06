@@ -44,16 +44,24 @@ namespace ERP_GMEDINA.Controllers
         // GET: /ListaPrecios/Create
         public ActionResult Create()
         {
-            ViewBag.listp_UsuarioCrea = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario");
-            ViewBag.listp_UsuarioModifica = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario");
-            ViewBag.listp_Id = new SelectList(db.tbListadoPrecioDetalle, "listp_Id", "prod_Codigo");
-            ViewBag.Producto = db.tbProducto.ToList();
-            Session["ListadoPrecio"] = null;
-            return View();
+            //ViewBag.listp_UsuarioCrea = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario");
+            //ViewBag.listp_UsuarioModifica = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario");
+            //ViewBag.listp_Id = new SelectList(db.tbListadoPrecioDetalle, "listp_Id", "prod_Codigo");
+            //ViewBag.Producto = db.tbProducto.ToList();
+            try
+            {
+                Session["ListadoPrecio"] = null;
+                return View();
+            }
+            catch (Exception Ex)
+            {
+                return View();
+            }
 
         }
 
-    
+
+
 
 
 
@@ -66,32 +74,34 @@ namespace ERP_GMEDINA.Controllers
         public ActionResult Create([Bind(Include = " listp_Nombre,listp_EsActivo,listp_FechaInicioVigencia,listp_FechaFinalVigencia,listp_Prioridad")] tbListaPrecio tbListaPrecio)
         {
 
-            ViewBag.Producto = db.tbProducto.ToList();
-        
-            var list = (List<tbListadoPrecioDetalle>)Session["ListadoPrecio"];
-            string MensajeError = "";
-            var MensajeErrorDetalle = "";
-            IEnumerable<object> listPrecio = null;
-            IEnumerable<object> listPrecioDetalle = null;
+            //ViewBag.Producto = db.tbProducto.ToList();
+
+
             if (ModelState.IsValid)
             {
                 try
                 {
                     using (TransactionScope Tran = new TransactionScope())
                     {
+                        var list = (List<tbListadoPrecioDetalle>)Session["ListadoPrecio"];
+                        string MensajeError = "";
+                        var MensajeErrorDetalle = "";
+                        IEnumerable<object> listPrecio = null;
+                        IEnumerable<object> listPrecioDetalle = null;
+
                         listPrecio = db.UDP_Vent_tbListaPrecio_Insert(
                                                  tbListaPrecio.listp_Nombre,
                                                                    tbListaPrecio.listp_EsActivo = true,
                                                                  tbListaPrecio.listp_FechaInicioVigencia,
                                                                  tbListaPrecio.listp_FechaFinalVigencia,
                                                                 tbListaPrecio.listp_Prioridad);
-                   
+
                         foreach (UDP_Vent_tbListaPrecio_Insert_Result Precio in listPrecio)
                             MensajeError = Precio.MensajeError;
                         if (MensajeError == "-1")
                         {
                             ModelState.AddModelError("", "No se pudo agregar el registro");
-                           
+
                             TempData["message"] = "No se pudo agregar el registro,ya existe nombre de lista";
                             return View(tbListaPrecio);
                         }
@@ -142,27 +152,23 @@ namespace ERP_GMEDINA.Controllers
                 catch (Exception Ex)
                 {
                     ModelState.AddModelError("", "No se pudo agregar el registros" + Ex.Message.ToString());
-                    ViewBag.Producto = db.tbProducto.ToList();
-                    ViewBag.listp_UsuarioCrea = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbListaPrecio.listp_UsuarioCrea);
-                    ViewBag.listp_UsuarioModifica = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbListaPrecio.listp_UsuarioModifica);
-                    ViewBag.listp_Id = new SelectList(db.tbListadoPrecioDetalle, "listp_Id", "prod_Codigo", tbListaPrecio.listp_Id);
+                    //ViewBag.Producto = db.tbProducto.ToList();
+                    //ViewBag.listp_UsuarioCrea = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbListaPrecio.listp_UsuarioCrea);
+                    //ViewBag.listp_UsuarioModifica = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbListaPrecio.listp_UsuarioModifica);
+                    //ViewBag.listp_Id = new SelectList(db.tbListadoPrecioDetalle, "listp_Id", "prod_Codigo", tbListaPrecio.listp_Id);
 
                 }
 
             }
-         
-                
 
-            ViewBag.Producto = db.tbProducto.ToList();
-            ViewBag.listp_UsuarioCrea = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbListaPrecio.listp_UsuarioCrea);
-            ViewBag.listp_UsuarioModifica = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbListaPrecio.listp_UsuarioModifica);
-            ViewBag.listp_Id = new SelectList(db.tbListadoPrecioDetalle, "listp_Id", "prod_Codigo", tbListaPrecio.listp_Id);
+
+
+            //ViewBag.Producto = db.tbProducto.ToList();
+            //ViewBag.listp_UsuarioCrea = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbListaPrecio.listp_UsuarioCrea);
+            //ViewBag.listp_UsuarioModifica = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbListaPrecio.listp_UsuarioModifica);
+            //ViewBag.listp_Id = new SelectList(db.tbListadoPrecioDetalle, "listp_Id", "prod_Codigo", tbListaPrecio.listp_Id);
             return View(tbListaPrecio);
         }
-
-
-
-
 
 
 
@@ -171,36 +177,55 @@ namespace ERP_GMEDINA.Controllers
         [HttpPost]
         public JsonResult SaveListaPrecioDetalle(tbListadoPrecioDetalle ListaDetalle)
         {
-            List<tbListadoPrecioDetalle> sessionPrecioDetalle = new List<tbListadoPrecioDetalle>();
-            var list = (List<tbListadoPrecioDetalle>)Session["ListadoPrecio"];
-            if (list == null)
+            try
             {
-                sessionPrecioDetalle.Add(ListaDetalle);
-                Session["ListadoPrecio"] = sessionPrecioDetalle;
+                List<tbListadoPrecioDetalle> sessionPrecioDetalle = new List<tbListadoPrecioDetalle>();
+                var list = (List<tbListadoPrecioDetalle>)Session["ListadoPrecio"];
+                if (list == null)
+                {
+                    sessionPrecioDetalle.Add(ListaDetalle);
+                    Session["ListadoPrecio"] = sessionPrecioDetalle;
+                }
+                else
+                {
+                    list.Add(ListaDetalle);
+                    Session["ListadoPrecio"] = list;
+                }
+                return Json("Exito", JsonRequestBehavior.AllowGet);
+
             }
-            else
+
+            catch (Exception Ex)
             {
-                list.Add(ListaDetalle);
-                Session["ListadoPrecio"] = list;
+                return Json("Fallo", JsonRequestBehavior.AllowGet);
             }
-            return Json("Exito", JsonRequestBehavior.AllowGet);
+
         }
 
 
         [HttpPost]
         public JsonResult QuitarPrecioDetalle(tbListadoPrecioDetalle ListadoPrecioDetalle)
         {
-            var list = (List<tbListadoPrecioDetalle>)Session["ListadoPrecio"];
 
-            if (list != null)
+            try
             {
-                var itemToRemove = list.Single(r => r.lispd_UsuarioCrea == ListadoPrecioDetalle.lispd_UsuarioCrea);
-                list.Remove(itemToRemove);
-                Session["ListadoPrecio"] = list;
-            }
-            return Json("", JsonRequestBehavior.AllowGet);
-        }
 
+                var list = (List<tbListadoPrecioDetalle>)Session["ListadoPrecio"];
+
+                if (list != null)
+                {
+                    var itemToRemove = list.Single(r => r.lispd_UsuarioCrea == ListadoPrecioDetalle.lispd_UsuarioCrea);
+                    list.Remove(itemToRemove);
+                    Session["ListadoPrecio"] = list;
+                }
+                return Json("", JsonRequestBehavior.AllowGet);
+            }
+            catch (Exception Ex)
+            {
+                return Json("Fallo", JsonRequestBehavior.AllowGet);
+            }
+
+        }
 
 
         // GET: /ListaPrecios/Edit/5
@@ -228,18 +253,21 @@ namespace ERP_GMEDINA.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include= "listp_Id,listp_Nombre,listp_EsActivo,listp_UsuarioCrea,listp_FechaCrea,listp_UsuarioModifica,listp_FechaModifica,listp_FechaInicioVigencia,listp_FechaFinalVigencia,listp_Prioridad")] tbListaPrecio tbListaPrecio)
+        public ActionResult Edit([Bind(Include = "listp_Id,listp_Nombre,listp_EsActivo,listp_UsuarioCrea,listp_FechaCrea,listp_UsuarioModifica,listp_FechaModifica,listp_FechaInicioVigencia,listp_FechaFinalVigencia,listp_Prioridad")] tbListaPrecio tbListaPrecio)
         {
-            var listEdit = (List<tbListadoPrecioDetalle>)Session["listaEdit"];
-            string MensajeError = "";
-            var MensajeErrorDetalle = "";
-            IEnumerable<object> list = null;
-            IEnumerable<object> listDetalle = null;
+
             if (ModelState.IsValid)
             {
                 try
-                {                    using (TransactionScope Tran = new TransactionScope())
+                {
+                    using (TransactionScope Tran = new TransactionScope())
                     {
+                        var listEdit = (List<tbListadoPrecioDetalle>)Session["listaEdit"];
+                        string MensajeError = "";
+                        var MensajeErrorDetalle = "";
+                        IEnumerable<object> list = null;
+                        IEnumerable<object> listDetalle = null;
+
                         list = db.UDP_Vent_tbListaPrecio_Update(tbListaPrecio.listp_Id,
                                                                    tbListaPrecio.listp_Nombre,
                                                                    tbListaPrecio.listp_EsActivo,
@@ -249,9 +277,9 @@ namespace ERP_GMEDINA.Controllers
                                                                    tbListaPrecio.listp_FechaFinalVigencia,
                                                                Convert.ToInt16(tbListaPrecio.listp_Prioridad)
                                                                );
-                                                                  
-                    foreach (UDP_Vent_tbListaPrecio_Update_Result ListaPrecio in list)
-                        MensajeError = ListaPrecio.MensajeError;
+
+                        foreach (UDP_Vent_tbListaPrecio_Update_Result ListaPrecio in list)
+                            MensajeError = ListaPrecio.MensajeError;
                         if (MensajeError == "-1")
                         {
                             ModelState.AddModelError("", "No se pudo agregar el registro");
@@ -308,23 +336,23 @@ namespace ERP_GMEDINA.Controllers
                 catch (Exception Ex)
                 {
                     ModelState.AddModelError("", "No se pudo agregar el registros" + Ex.Message.ToString());
-                    ViewBag.listp_UsuarioCrea = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbListaPrecio.listp_UsuarioCrea);
-                    ViewBag.listp_UsuarioModifica = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbListaPrecio.listp_UsuarioModifica);
-                    ViewBag.listp_Id = new SelectList(db.tbListadoPrecioDetalle, "listp_Id", "prod_Codigo", tbListaPrecio.listp_Id);
-                    ViewBag.Producto = db.tbProducto.ToList();
+                    //ViewBag.listp_UsuarioCrea = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbListaPrecio.listp_UsuarioCrea);
+                    //ViewBag.listp_UsuarioModifica = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbListaPrecio.listp_UsuarioModifica);
+                    //ViewBag.listp_Id = new SelectList(db.tbListadoPrecioDetalle, "listp_Id", "prod_Codigo", tbListaPrecio.listp_Id);
+                    //ViewBag.Producto = db.tbProducto.ToList();
 
                     ModelState.AddModelError("", "No se pudo agregar el registro");
 
                     TempData["message"] = "No se pudo agregar el registro,ya existe producto";
-   
+
                 }
 
                 return RedirectToAction("Index");
             }
-            ViewBag.listp_UsuarioCrea = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbListaPrecio.listp_UsuarioCrea);
-            ViewBag.listp_UsuarioModifica = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbListaPrecio.listp_UsuarioModifica);
-            ViewBag.listp_Id = new SelectList(db.tbListadoPrecioDetalle, "listp_Id", "prod_Codigo", tbListaPrecio.listp_Id);
-            ViewBag.Producto = db.tbProducto.ToList();
+            //ViewBag.listp_UsuarioCrea = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbListaPrecio.listp_UsuarioCrea);
+            //ViewBag.listp_UsuarioModifica = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbListaPrecio.listp_UsuarioModifica);
+            //ViewBag.listp_Id = new SelectList(db.tbListadoPrecioDetalle, "listp_Id", "prod_Codigo", tbListaPrecio.listp_Id);
+            //ViewBag.Producto = db.tbProducto.ToList();
             return View(tbListaPrecio);
         }
 
@@ -332,20 +360,30 @@ namespace ERP_GMEDINA.Controllers
         [HttpPost]
         public JsonResult SaveDetalleEdit(tbListadoPrecioDetalle FacturaDetalleEdit)
         {
-            List<tbListadoPrecioDetalle> sessionPrecioDetalleEdit = new List<tbListadoPrecioDetalle>();
-            var listEdit = (List<tbListadoPrecioDetalle>)Session["listaEdit"];
-            if (listEdit == null)
+            try
             {
-                sessionPrecioDetalleEdit.Add(FacturaDetalleEdit);
-                Session["listaEdit"] = sessionPrecioDetalleEdit;
+
+                List<tbListadoPrecioDetalle> sessionPrecioDetalleEdit = new List<tbListadoPrecioDetalle>();
+                var listEdit = (List<tbListadoPrecioDetalle>)Session["listaEdit"];
+                if (listEdit == null)
+                {
+                    sessionPrecioDetalleEdit.Add(FacturaDetalleEdit);
+                    Session["listaEdit"] = sessionPrecioDetalleEdit;
+                }
+                else
+                {
+                    listEdit.Add(FacturaDetalleEdit);
+                    Session["listaEdit"] = listEdit;
+                }
+                return Json("Exito", JsonRequestBehavior.AllowGet);
             }
-            else
+            catch (Exception Ex)
             {
-                listEdit.Add(FacturaDetalleEdit);
-                Session["listaEdit"] = listEdit;
+                return Json("Fallo", JsonRequestBehavior.AllowGet);
             }
-            return Json("Exito", JsonRequestBehavior.AllowGet);
+
         }
+
 
         //public ActionResult UpdateListaPrecioDetalle(tbListadoPrecioDetalle EditListadoPrecioDetalle)
         //{
@@ -564,20 +602,29 @@ namespace ERP_GMEDINA.Controllers
         [HttpPost]
         public JsonResult SaveFacturaDetalleEdit(tbFacturaDetalle FacturaDetalleEdit)
         {
-            List<tbFacturaDetalle> sessionFacturaDetalle = new List<tbFacturaDetalle>();
-            var listEdit = (List<tbFacturaDetalle>)Session["FacturaEdit"];
-            if (listEdit == null)
+
+            try
             {
-                sessionFacturaDetalle.Add(FacturaDetalleEdit);
-                Session["FacturaEdit"] = sessionFacturaDetalle;
+                List<tbFacturaDetalle> sessionFacturaDetalle = new List<tbFacturaDetalle>();
+                var listEdit = (List<tbFacturaDetalle>)Session["FacturaEdit"];
+                if (listEdit == null)
+                {
+                    sessionFacturaDetalle.Add(FacturaDetalleEdit);
+                    Session["FacturaEdit"] = sessionFacturaDetalle;
+                }
+                else
+                {
+                    listEdit.Add(FacturaDetalleEdit);
+                    Session["FacturaEdit"] = listEdit;
+                }
+                return Json("Exito", JsonRequestBehavior.AllowGet);
             }
-            else
+            catch (Exception Ex)
             {
-                listEdit.Add(FacturaDetalleEdit);
-                Session["FacturaEdit"] = listEdit;
+                return Json("Fallo", JsonRequestBehavior.AllowGet);
             }
-            return Json("Exito", JsonRequestBehavior.AllowGet);
         }
+
 
 
 

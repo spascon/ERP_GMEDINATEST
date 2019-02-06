@@ -55,40 +55,61 @@ namespace ERP_ZORZAL.Controllers
 
         public ActionResult Facturar(tbPedido Pedido)
         {
-            Session["IDCLIENTE"] = Session["ID"];
-            Session["IDENTIFICACION"] = Session["IDENT"];
-            Session["NOMBRES"] = Session["NOM"];
-            Session["PEDIDO"] = Session["PEDID"];
-            Session["DETALLE"] = Session["DETALLES"];
-            //Session["PRODUCTO"] = Session["PRO"];
-            //Session["CANTIDAD"] = Session["CANT"];
-            //Session["DESCRIPCION"] = Session["DESC"];
-            //Session["PRECIOUNI"] = Session["PRECIO"];
-            //Session["IMPUESTO"] = Session["IMP"];
-            return RedirectToAction("Create", "Factura");
-        }
+            try
+            {
 
+                Session["IDCLIENTE"] = Session["ID"];
+                Session["IDENTIFICACION"] = Session["IDENT"];
+                Session["NOMBRES"] = Session["NOM"];
+                Session["PEDIDO"] = Session["PEDID"];
+                Session["DETALLE"] = Session["DETALLES"];
+                //Session["PRODUCTO"] = Session["PRO"];
+                //Session["CANTIDAD"] = Session["CANT"];
+                //Session["DESCRIPCION"] = Session["DESC"];
+                //Session["PRECIOUNI"] = Session["PRECIO"];
+                //Session["IMPUESTO"] = Session["IMP"];
+                return RedirectToAction("Create", "Factura");
+            }
+            catch (Exception Ex)
+            {
+                return View();
+            }
+
+
+        }
 
         // GET: /Pedido/Create
         public ActionResult Create()
         {
-            //ViewBag.ped_UsuarioCrea = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario");
-            //ViewBag.ped_UsuarioModifica = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario");
-            //ViewBag.clte_Id = new SelectList(db.tbCliente, "clte_Id", "clte_RTN_Identidad_Pasaporte");
-            //ViewBag.fact_Id = new SelectList(db.tbFactura, "fact_Id", "fact_Codigo");
-            //ViewBag.suc_Id = new SelectList(db.tbSucursal, "suc_Id", "mun_Codigo");
 
 
-            ViewBag.esped_Id = new SelectList(db.tbEstadoPedido, "esped_Id", "esped_Descripcion");
-     
-            ViewBag.suc_Id = new SelectList(db.tbSucursal, "suc_Id", "mun_Codigo");
-            ViewBag.Cliente = db.tbCliente.ToList();
-            Session["tbPedidoDetalle"] = null;
-            ViewBag.Producto = db.tbProducto.ToList();
-            tbPedido Pedido = new tbPedido();
-            Pedido.esped_Id = Helpers.Pendiente;
-            Pedido.suc_Id = 1;
-            return View(Pedido);
+
+            try
+            {
+                ViewBag.ped_UsuarioCrea = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario");
+                ViewBag.ped_UsuarioModifica = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario");
+                ViewBag.clte_Id = new SelectList(db.tbCliente, "clte_Id", "clte_RTN_Identidad_Pasaporte");
+                ViewBag.fact_Id = new SelectList(db.tbFactura, "fact_Id", "fact_Codigo");
+                ViewBag.suc_Id = new SelectList(db.tbSucursal, "suc_Id", "mun_Codigo");
+                ViewBag.esped_Id = new SelectList(db.tbEstadoPedido, "esped_Id", "esped_Descripcion");
+                ViewBag.suc_Id = new SelectList(db.tbSucursal, "suc_Id", "mun_Codigo");
+                ViewBag.Cliente = db.tbCliente.ToList();
+
+                Session["tbPedidoDetalle"] = null;
+                //ViewBag.Producto = db.tbProducto.ToList();
+                tbPedido Pedido = new tbPedido();
+                Pedido.esped_Id = Helpers.Pendiente;
+                Pedido.suc_Id = 1;
+                return View(Pedido);
+            }
+            catch (Exception Ex)
+            {
+
+
+                return View();
+            }
+
+
 
         }
 
@@ -99,21 +120,32 @@ namespace ERP_ZORZAL.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "esped_Id,ped_FechaElaboracion,ped_FechaEntrega,clte_Id,suc_Id,fact_Id,ped_EsAnulado,ped_RazonAnulado,tbUsuario,tbUsuario1")] tbPedido tbPedido)
         {
-            ViewBag.ped_UsuarioCrea = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbPedido.ped_UsuarioCrea);
-            ViewBag.esped_Id = new SelectList(db.tbEstadoPedido, "esped_Id", "esped_Descripcion");
-            ViewBag.Producto = db.tbProducto.ToList();
-            ViewBag.Cliente = db.tbCliente.ToList();
-            var list = (List<tbPedidoDetalle>)Session["tbPedidoDetalle"];
-            string MensajeError = "";
-            var MensajeErrorDetalle = "";
-            IEnumerable<object> listPedido = null;
-            IEnumerable<object> listPedidoDetalles = null;
+
+
+
+
             if (ModelState.IsValid)
             {
                 try
                 {
+
+                    ViewBag.ped_UsuarioCrea = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbPedido.ped_UsuarioCrea);
+
+                    ViewBag.clte_Id = new SelectList(db.tbCliente, "clte_Id", "clte_RTN_Identidad_Pasaporte", tbPedido.clte_Id);
+                    ViewBag.fact_Id = new SelectList(db.tbFactura, "fact_Id", "fact_Codigo", tbPedido.fact_Id);
+                    ViewBag.suc_Id = new SelectList(db.tbSucursal, "suc_Id", "mun_Codigo", tbPedido.suc_Id);
+                    ViewBag.ped_UsuarioCrea = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbPedido.ped_UsuarioCrea);
+                    ViewBag.esped_Id = new SelectList(db.tbEstadoPedido, "esped_Id", "esped_Descripcion");
+                    ViewBag.Producto = db.tbProducto.ToList();
+                    ViewBag.Cliente = db.tbCliente.ToList();
                     using (TransactionScope Tran = new TransactionScope())
                     {
+                        var list = (List<tbPedidoDetalle>)Session["tbPedidoDetalle"];
+                        string MensajeError = "";
+                        var MensajeErrorDetalle = "";
+                        IEnumerable<object> listPedido = null;
+                        IEnumerable<object> listPedidoDetalles = null;
+
                         listPedido = db.UDP_Vent_tbPedido_Insert(
                                                 tbPedido.esped_Id,
                                                 tbPedido.ped_FechaElaboracion,
@@ -174,64 +206,76 @@ namespace ERP_ZORZAL.Controllers
                 }
                 catch (Exception Ex)
                 {
-                    ModelState.AddModelError("", "No se pudo agregar el registros" + Ex.Message.ToString());
-                    ViewBag.ped_UsuarioCrea = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbPedido.ped_UsuarioCrea);
-                    ViewBag.ped_UsuarioModifica = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbPedido.ped_UsuarioModifica);
-                    ViewBag.clte_Id = new SelectList(db.tbCliente, "clte_Id", "clte_RTN_Identidad_Pasaporte", tbPedido.clte_Id);
-                    ViewBag.fact_Id = new SelectList(db.tbFactura, "fact_Id", "fact_Codigo", tbPedido.fact_Id);
-                    ViewBag.suc_Id = new SelectList(db.tbSucursal, "suc_Id", "mun_Codigo", tbPedido.suc_Id);
-                    ViewBag.esped_Id = new SelectList(db.tbEstadoPedido, "esped_Id", "esped_Descripcion");
-                    ViewBag.Producto = db.tbProducto.ToList();
-                    ViewBag.Cliente = db.tbCliente.ToList();
-                    ViewBag.ListaPrecio = db.tbListaPrecio.ToList();
+                    //ModelState.AddModelError("", "No se pudo agregar el registros" + Ex.Message.ToString());
+                    //ViewBag.ped_UsuarioCrea = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbPedido.ped_UsuarioCrea);
+                    //ViewBag.ped_UsuarioModifica = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbPedido.ped_UsuarioModifica);
+                    //ViewBag.clte_Id = new SelectList(db.tbCliente, "clte_Id", "clte_RTN_Identidad_Pasaporte", tbPedido.clte_Id);
+                    //ViewBag.fact_Id = new SelectList(db.tbFactura, "fact_Id", "fact_Codigo", tbPedido.fact_Id);
+                    //ViewBag.suc_Id = new SelectList(db.tbSucursal, "suc_Id", "mun_Codigo", tbPedido.suc_Id);
+                    //ViewBag.esped_Id = new SelectList(db.tbEstadoPedido, "esped_Id", "esped_Descripcion");
+                    //ViewBag.Producto = db.tbProducto.ToList();
+                    //ViewBag.Cliente = db.tbCliente.ToList();
+                    //ViewBag.ListaPrecio = db.tbListaPrecio.ToList();
+                    return View();
                 }
 
             }
-            ViewBag.ped_UsuarioCrea = new SelectList(db.tbUsuario, "usu_Id", "usu_NombreUsuario", tbPedido.ped_UsuarioCrea);
-    
-            ViewBag.clte_Id = new SelectList(db.tbCliente, "clte_Id", "clte_RTN_Identidad_Pasaporte", tbPedido.clte_Id);
-            ViewBag.fact_Id = new SelectList(db.tbFactura, "fact_Id", "fact_Codigo", tbPedido.fact_Id);
-            ViewBag.suc_Id = new SelectList(db.tbSucursal, "suc_Id", "mun_Codigo", tbPedido.suc_Id);
-            ViewBag.esped_Id = new SelectList(db.tbEstadoPedido, "esped_Id", "esped_Descripcion");
-            ViewBag.Cliente = db.tbCliente.ToList();
-            ViewBag.Producto = db.tbProducto.ToList();
-            ViewBag.ListaPrecio = db.tbListaPrecio.ToList();
+
             return View(tbPedido);
         }
         [HttpPost]
         public JsonResult SavePedidoDetalles(tbPedidoDetalle PedidoDetalle)
         {
-            List<tbPedidoDetalle> sessionPedidoDetalle = new List<tbPedidoDetalle>();
-            var list = (List<tbPedidoDetalle>)Session["tbPedidoDetalle"];
-            if (list == null)
+            try
             {
-                sessionPedidoDetalle.Add(PedidoDetalle);
-                Session["tbPedidoDetalle"] = sessionPedidoDetalle;
-            }
-            else
-            {
-                list.Add(PedidoDetalle);
-                Session["tbPedidoDetalle"] = list;
-            }
-            return Json("Exito", JsonRequestBehavior.AllowGet);
-        }
 
+                List<tbPedidoDetalle> sessionPedidoDetalle = new List<tbPedidoDetalle>();
+                var list = (List<tbPedidoDetalle>)Session["tbPedidoDetalle"];
+                if (list == null)
+                {
+                    sessionPedidoDetalle.Add(PedidoDetalle);
+                    Session["tbPedidoDetalle"] = sessionPedidoDetalle;
+                }
+                else
+                {
+                    list.Add(PedidoDetalle);
+                    Session["tbPedidoDetalle"] = list;
+                }
+                return Json("Exito", JsonRequestBehavior.AllowGet);
+
+            }
+            catch (Exception Ex)
+            {
+                Ex.Message.ToString();
+                return Json("Fallo", JsonRequestBehavior.AllowGet);
+            }
+
+        }
         [HttpPost]
         public JsonResult QuitarPedidoDetalle(tbPedidoDetalle PedidoDetalle)
         {
-            var list = (List<tbPedidoDetalle>)Session["tbPedido"];
-
-            if (list != null)
+            try
             {
-                var itemToRemove = list.Single(r => r.pedd_UsuarioCrea == PedidoDetalle.pedd_UsuarioCrea);
-                list.Remove(itemToRemove);
-                Session["tbPedidoDetalle"] = list;
+
+                var list = (List<tbPedidoDetalle>)Session["tbPedido"];
+
+                if (list != null)
+                {
+                    var itemToRemove = list.Single(r => r.pedd_UsuarioCrea == PedidoDetalle.pedd_UsuarioCrea);
+                    list.Remove(itemToRemove);
+                    Session["tbPedidoDetalle"] = list;
+                }
+                return Json("", JsonRequestBehavior.AllowGet);
             }
-            return Json("", JsonRequestBehavior.AllowGet);
+            catch (Exception Ex)
+            {
+                return Json("Fallo", JsonRequestBehavior.AllowGet);
+            }
+
         }
 
 
-        
+
         [HttpPost]
         public JsonResult getPedidoDetalle  (int pedd_Id)
         {

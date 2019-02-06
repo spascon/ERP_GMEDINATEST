@@ -66,6 +66,13 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ActividadEconomicaControllerTest.CreateTest.g.cs" />
+    <Compile Include="ActividadEconomicaControllerTest.CreateTest01.g.cs" />
+    <Compile Include="ActividadEconomicaControllerTest.cs" />
+    <Compile Include="ActividadEconomicaControllerTest.DeleteTest.g.cs" />
+    <Compile Include="ActividadEconomicaControllerTest.DetailsTest.g.cs" />
+    <Compile Include="ActividadEconomicaControllerTest.EditTest.g.cs" />
+    <Compile Include="ActividadEconomicaControllerTest.EditTest01.g.cs" />
     <Compile Include="BancoControllerTest.ConstructorTest.g.cs" />
     <Compile Include="BancoControllerTest.CreateTest.g.cs" />
     <Compile Include="BancoControllerTest.CreateTest01.g.cs" />
@@ -92,6 +99,15 @@
     <Compile Include="CuentaBancoControllerTest.DetailsTest.g.cs" />
     <Compile Include="CuentaBancoControllerTest.EditTest.g.cs" />
     <Compile Include="CuentaBancoControllerTest.IndexTest.g.cs" />
+    <Compile Include="CuponDescuentoControllerTest.AnularCuponDescuentoTest.g.cs" />
+    <Compile Include="CuponDescuentoControllerTest.ConstructorTest.g.cs" />
+    <Compile Include="CuponDescuentoControllerTest.CreateTest.g.cs" />
+    <Compile Include="CuponDescuentoControllerTest.CreateTest01.g.cs" />
+    <Compile Include="CuponDescuentoControllerTest.cs" />
+    <Compile Include="CuponDescuentoControllerTest.DeleteTest.g.cs" />
+    <Compile Include="CuponDescuentoControllerTest.DetailsTest.g.cs" />
+    <Compile Include="CuponDescuentoControllerTest.EditTest.g.cs" />
+    <Compile Include="CuponDescuentoControllerTest.EditTest01.g.cs" />
     <Compile Include="DenominacionControllerTest.ConstructorTest.g.cs">
       <DependentUpon>DenominacionControllerTest.cs</DependentUpon>
     </Compile>
@@ -180,6 +196,22 @@
     <Compile Include="EstadoFacturaControllerTest.DetailsTest.g.cs" />
     <Compile Include="EstadoFacturaControllerTest.EditTest.g.cs" />
     <Compile Include="EstadoFacturaControllerTest.EditTest01.g.cs" />
+    <Compile Include="EstadoSolicitudCreditoControllerTest.ConstructorTest.g.cs" />
+    <Compile Include="EstadoSolicitudCreditoControllerTest.CreateTest.g.cs" />
+    <Compile Include="EstadoSolicitudCreditoControllerTest.CreateTest01.g.cs" />
+    <Compile Include="EstadoSolicitudCreditoControllerTest.CreateTest02.g.cs" />
+    <Compile Include="EstadoSolicitudCreditoControllerTest.CreateTest03.g.cs" />
+    <Compile Include="EstadoSolicitudCreditoControllerTest.CreateTest04.g.cs" />
+    <Compile Include="EstadoSolicitudCreditoControllerTest.CreateTest05.g.cs" />
+    <Compile Include="EstadoSolicitudCreditoControllerTest.CreateTest06.g.cs" />
+    <Compile Include="EstadoSolicitudCreditoControllerTest.CreateTest07.g.cs" />
+    <Compile Include="EstadoSolicitudCreditoControllerTest.CreateTest08.g.cs" />
+    <Compile Include="EstadoSolicitudCreditoControllerTest.CreateTest09.g.cs" />
+    <Compile Include="EstadoSolicitudCreditoControllerTest.cs" />
+    <Compile Include="EstadoSolicitudCreditoControllerTest.DeleteTest.g.cs" />
+    <Compile Include="EstadoSolicitudCreditoControllerTest.DetailsTest.g.cs" />
+    <Compile Include="EstadoSolicitudCreditoControllerTest.EditTest.g.cs" />
+    <Compile Include="EstadoSolicitudCreditoControllerTest.EditTest01.g.cs" />
     <Compile Include="Factories\BancoControllerFactory.cs" />
     <Compile Include="Factories\ClienteControllerFactory.cs" />
     <Compile Include="Factories\CuentaBancoControllerFactory.cs" />
@@ -243,11 +275,43 @@
     <Compile Include="FacturaControllerTest._CreateClienteTest.g.cs">
       <DependentUpon>FacturaControllerTest.cs</DependentUpon>
     </Compile>
+    <Compile Include="ListaPreciosControllerTest.ActivarListaPrecioTest.g.cs" />
+    <Compile Include="ListaPreciosControllerTest.ConstructorTest.g.cs" />
+    <Compile Include="ListaPreciosControllerTest.CreateTest.g.cs" />
+    <Compile Include="ListaPreciosControllerTest.CreateTest01.g.cs" />
+    <Compile Include="ListaPreciosControllerTest.cs" />
+    <Compile Include="ListaPreciosControllerTest.DeleteTest.g.cs" />
+    <Compile Include="ListaPreciosControllerTest.DetailsTest.g.cs" />
+    <Compile Include="ListaPreciosControllerTest.EditTest.g.cs" />
+    <Compile Include="ListaPreciosControllerTest.EditTest01.g.cs" />
+    <Compile Include="ListaPreciosControllerTest.GuardarListadoPrecioDetalleTest.g.cs" />
+    <Compile Include="ListaPreciosControllerTest.QuitarPrecioDetalleTest.g.cs" />
+    <Compile Include="ListaPreciosControllerTest.SaveDetalleEditTest.g.cs" />
+    <Compile Include="ListaPreciosControllerTest.SaveFacturaDetalleEditTest.g.cs" />
+    <Compile Include="ListaPreciosControllerTest.SaveListaPrecioDetalleTest.g.cs" />
+    <Compile Include="ListaPreciosControllerTest.UpdateListadoPrecioDetalleTest.g.cs" />
+    <Compile Include="MonedaControllerTest.ConstructorTest.g.cs" />
+    <Compile Include="MonedaControllerTest.CreateTest.g.cs" />
+    <Compile Include="MonedaControllerTest.CreateTest01.g.cs" />
+    <Compile Include="MonedaControllerTest.cs" />
+    <Compile Include="MonedaControllerTest.DeleteTest.g.cs" />
+    <Compile Include="MonedaControllerTest.DetailsTest.g.cs" />
+    <Compile Include="MonedaControllerTest.EditTest.g.cs" />
+    <Compile Include="MonedaControllerTest.EditTest01.g.cs" />
     <Compile Include="MovimientoCajaControllerTest.ConstructorTest.g.cs" />
     <Compile Include="MovimientoCajaControllerTest.CreateAperturaTest.g.cs" />
     <Compile Include="MovimientoCajaControllerTest.cs" />
     <Compile Include="MovimientoCajaControllerTest.SaveSolicitudEfectivoDetalleTest.g.cs" />
     <Compile Include="MovimientoCajaControllerTest.SaveSolicitudEfectivoMonedaTest.g.cs" />
+    <Compile Include="NotaCreditoControllerTest.AnularNotaCreditoTest.g.cs" />
+    <Compile Include="NotaCreditoControllerTest.ConstructorTest.g.cs" />
+    <Compile Include="NotaCreditoControllerTest.CreateTest.g.cs" />
+    <Compile Include="NotaCreditoControllerTest.CreateTest01.g.cs" />
+    <Compile Include="NotaCreditoControllerTest.cs" />
+    <Compile Include="NotaCreditoControllerTest.DeleteTest.g.cs" />
+    <Compile Include="NotaCreditoControllerTest.DetailsTest.g.cs" />
+    <Compile Include="NotaCreditoControllerTest.EditTest.g.cs" />
+    <Compile Include="NotaCreditoControllerTest._IndexDevolucionTest.g.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_036C0B5B-1481-4323-8D20-8F5ADCB23D92.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_5937a670-0e60-4077-877b-f7221da3dda1.cs" />
     <Compile Include="obj\Debug\TemporaryGeneratedFile_E7A71F73-0F8D-4B9B-B56E-8E70B10BC5D3.cs" />
@@ -273,11 +337,27 @@
     <Compile Include="PagoControllerTest.EditTest01.g.cs">
       <DependentUpon>PagoControllerTest.cs</DependentUpon>
     </Compile>
+    <Compile Include="PedidoControllerTest.AnularPedidoTest.g.cs" />
     <Compile Include="PedidoControllerTest.ConstructorTest.g.cs" />
+    <Compile Include="PedidoControllerTest.ConstructorTest1.g.cs" />
+    <Compile Include="PedidoControllerTest.CreateTest.g.cs" />
+    <Compile Include="PedidoControllerTest.CreateTest01.g.cs" />
     <Compile Include="PedidoControllerTest.cs" />
+    <Compile Include="PedidoControllerTest.DeleteTest.g.cs" />
+    <Compile Include="PedidoControllerTest.DetailsTest.g.cs" />
     <Compile Include="PedidoControllerTest.EditPedidoTest.g.cs" />
+    <Compile Include="PedidoControllerTest.EditPedidoTest2.g.cs" />
+    <Compile Include="PedidoControllerTest.EditTest.g.cs" />
+    <Compile Include="PedidoControllerTest.EditTest01.g.cs" />
     <Compile Include="PedidoControllerTest.FacturarTest.g.cs" />
+    <Compile Include="PedidoControllerTest.FacturarTest3.g.cs" />
     <Compile Include="PedidoControllerTest.GuardarPedidoDetalleTest.g.cs" />
+    <Compile Include="PedidoControllerTest.GuardarPedidoDetalleTest4.g.cs" />
+    <Compile Include="PedidoControllerTest.QuitarPedidoDetalleTest.g.cs" />
+    <Compile Include="PedidoControllerTest.SavePedidoDetallesTest.g.cs" />
+    <Compile Include="PedidoControllerTest.UpdatePedidoDetalleTest.g.cs" />
+    <Compile Include="PedidoControllerTest._IndexClienteTest.g.cs" />
+    <Compile Include="PedidoControllerTest._IndexProductoTest.g.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Properties\PexAssemblyInfo.cs" />
     <Compile Include="PuntoEmisionControllerTest.ConstructorTest.g.cs" />
@@ -289,6 +369,18 @@
     <Compile Include="PuntoEmisionControllerTest.EditTest.g.cs" />
     <Compile Include="PuntoEmisionControllerTest.RemovePuntoEmisionDetalleTest.g.cs" />
     <Compile Include="PuntoEmisionControllerTest.SavePuntoEmisionDetalleTest.g.cs" />
+    <Compile Include="SolicitudCreditoControllerTest.AceptarSolicitudTest.g.cs" />
+    <Compile Include="SolicitudCreditoControllerTest.ConstructorTest.g.cs" />
+    <Compile Include="SolicitudCreditoControllerTest.CreateTest.g.cs" />
+    <Compile Include="SolicitudCreditoControllerTest.CreateTest01.g.cs" />
+    <Compile Include="SolicitudCreditoControllerTest.cs" />
+    <Compile Include="SolicitudCreditoControllerTest.DeleteTest.g.cs" />
+    <Compile Include="SolicitudCreditoControllerTest.DetailsTest.g.cs" />
+    <Compile Include="SolicitudCreditoControllerTest.EditTest.g.cs" />
+    <Compile Include="SolicitudCreditoControllerTest.EditTest01.g.cs" />
+    <Compile Include="SolicitudCreditoControllerTest.IndexSolicitudTest.g.cs" />
+    <Compile Include="SolicitudCreditoControllerTest.IndexTest.g.cs" />
+    <Compile Include="SolicitudCreditoControllerTest.UpdateSolicitudCreditoTest.g.cs" />
     <Compile Include="SolicitudEfectivoControllerTest.ConstructorTest.g.cs" />
     <Compile Include="SolicitudEfectivoControllerTest.cs" />
     <Compile Include="SolicitudEfectivoControllerTest.EditEntregaEfectivoTest.g.cs" />
@@ -312,6 +404,14 @@
     <Compile Include="SucursalControllerTest.EditTest.g.cs">
       <DependentUpon>SucursalControllerTest.cs</DependentUpon>
     </Compile>
+    <Compile Include="TipoIdentificacionControllerTest.ConstructorTest.g.cs" />
+    <Compile Include="TipoIdentificacionControllerTest.CreateTest.g.cs" />
+    <Compile Include="TipoIdentificacionControllerTest.CreateTest01.g.cs" />
+    <Compile Include="TipoIdentificacionControllerTest.cs" />
+    <Compile Include="TipoIdentificacionControllerTest.DeleteTest.g.cs" />
+    <Compile Include="TipoIdentificacionControllerTest.DetailsTest.g.cs" />
+    <Compile Include="TipoIdentificacionControllerTest.EditTest.g.cs" />
+    <Compile Include="TipoIdentificacionControllerTest.EditTest01.g.cs" />
     <Compile Include="TipoPagoControllerTest.ConstructorTest.g.cs">
       <DependentUpon>TipoPagoControllerTest.cs</DependentUpon>
     </Compile>
@@ -398,6 +498,9 @@
     <Folder Include="bin\Debug\reports\190205.200741.11236.pex\tests\" />
     <Folder Include="bin\Release\" />
     <Folder Include="obj\Debug\TempPE\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadata Include="Service References\" />
   </ItemGroup>
   <Choose>
     <When Condition="('$(VisualStudioVersion)' == '10.0' or '$(VisualStudioVersion)' == '') and '$(TargetFrameworkVersion)' == 'v3.5'">
